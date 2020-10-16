@@ -46,5 +46,8 @@ A thread can be in one of the following states:
 2.	notify()
 3.	notifyAll()
 
+### Uncaught Exception in Threads
++	specific exception handler for each of the thread
++	generic exception handler for all of the thread
 
 
