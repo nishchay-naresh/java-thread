@@ -2,20 +2,20 @@
 Java threading concepts
 
 
-##spawning a thread
+### spawning a thread
 To spawn a new Thread, get it executed as independent path of execution.
 One need 3 things :
 1. Task - in the form of Runnable implementation
 2. Worker - a Thread class object
 3. Assigning task to the Worker - Passing task to the worker & invoking t.start()
 
-##starting a thread twice - IllegalThreadStateException
+### starting a thread twice - IllegalThreadStateException
 
-##extends thread vs implements runnable
+### extends thread vs implements runnable
 
-##getting & setting name of a thread
+### getting & setting name of a thread
 
-##thread states and transitions
+### thread states and transitions
 A thread can be in one of the following states:
 +	NEW
 +	RUNNABLE
@@ -24,23 +24,24 @@ A thread can be in one of the following states:
 +	TIMED_WAITING
 +	TERMINATED
 
-##thread priorities
+### thread priorities
 
 
-##demon thread
+### demon thread
 
 
-
-##method to prevent thread execution
+### method to prevent thread execution
 1.	t.join()
 2.	t.interrupt()
 3.	Thread.sleep()
 4.	Thread.yield()
-##synchronization
+
+### synchronization
 1.	sharing single resource across multiple threads
 2.	read-write problem
 3.	deadlock
-##inter-thread communication
+
+### inter-thread communication
 1.	wait
 2.	notify()
 3.	notifyAll()
