@@ -54,13 +54,13 @@ A thread can be in one of the following states:
 Exploring java concurrent Package
 
 
-###Lock
+### Lock
 
-###Callable & Future
+### Callable & Future
 
-###ThreadLocal
+### ThreadLocal
 
-###Concurrent Collection
+### Concurrent Collection
 
 +	CopyOnWriteArrayList
 +	CopyOnWriteArraySet
@@ -74,7 +74,7 @@ Exploring java concurrent Package
 +	ConcurrentHashMap
 
 
-###ThreadPool
+### ThreadPool
 
 +	Executors.newSingleThreadExecutor();
 +	Executors.newFixedThreadPool(1);
@@ -82,7 +82,7 @@ Exploring java concurrent Package
 +	ForkJoinPool
 
 
-###Synchronizers
+### Synchronizers
 
 1.	Semaphore 
 2.	CountDownLatch
