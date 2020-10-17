@@ -50,4 +50,48 @@ A thread can be in one of the following states:
 +	specific exception handler for each of the thread
 +	generic exception handler for all of the thread
 
+# java.util.concurrent Package
+Exploring java concurrent Package
 
+
+
+###Lock
+
+###Callable & Future
+
+###ThreadLocal
+
+###Concurrent Collection
+
++	CopyOnWriteArrayList
++	CopyOnWriteArraySet
+
+
++	BlockingQueue 
++	ArrayBlockingQueue 
++	LinkedBlockingQueue
+
+
++	ConcurrentHashMap
+
+
+###ThreadPool
+
++	Executors.newSingleThreadExecutor();
++	Executors.newFixedThreadPool(1);
++	Executors.newCachedThreadPool();
++	ForkJoinPool
+
+
+###Synchronizers
+
+1.	Semaphore 
+2.	CountDownLatch
+3.	CyclicBarrier
+4.	SynchronousQueue
+5.	Exchanger
+6.	Phaser
+
+
+
+ 
