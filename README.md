@@ -54,7 +54,6 @@ A thread can be in one of the following states:
 Exploring java concurrent Package
 
 
-
 ###Lock
 
 ###Callable & Future
