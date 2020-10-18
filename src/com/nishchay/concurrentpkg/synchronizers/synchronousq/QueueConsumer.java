@@ -16,6 +16,10 @@ public class QueueConsumer implements Runnable {
             String event = queue.take();
             // thread will block here
             System.out.printf("[%s] consumed event : %s %n", Thread.currentThread().getName(), event);
+
+/*            event = queue.take();
+            // thread will block here
+            System.out.printf("[%s] consumed event : %s %n", Thread.currentThread().getName(), event);*/
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
