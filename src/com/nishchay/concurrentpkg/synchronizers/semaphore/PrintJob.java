@@ -14,11 +14,12 @@ public class PrintJob implements Runnable {
     public void run() {
         try {
             semaphore.acquire(); // decrease the permit count
+//            semaphore.acquireUninterruptibly(); // doesn't throw InterruptedException
             // critical section
             System.out.printf("Printer - %d, is currently been used by - %s %n", semaphore.availablePermits() + 1, Thread.currentThread().getName());
             Thread.sleep(2 * 1000);
             semaphore.release(); // increase the permit count
-        } catch (InterruptedException e) {
+       } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
