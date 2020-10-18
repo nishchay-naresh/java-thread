@@ -1,6 +1,5 @@
 package com.nishchay.concurrentpkg.collection;
 
-import com.nishchay.pojo.Student;
 
 import java.util.concurrent.PriorityBlockingQueue;
 
@@ -15,7 +14,7 @@ public class PriorityBlockingQueueDemo {
 
     private static void pqMethod4IntegerOrdering() {
 
-        PriorityBlockingQueue<Integer> queue = new PriorityBlockingQueue<Integer>();
+        PriorityBlockingQueue<Integer> queue = new PriorityBlockingQueue<>();
         queue.add(10);
         queue.add(2);
         queue.add(5);
