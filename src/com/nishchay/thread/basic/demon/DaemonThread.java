@@ -3,7 +3,7 @@ package com.nishchay.thread.basic.demon;
 /*
     Demon thread demo for JVM exit
     if A background running task is set as demon, JVM will exit as soon as it finishes its own task
-    Else JVM will also be running , until demon thread is not getting stopped
+    Else JVM will also be running, until demon thread is not getting stopped
  */
 
 public class DaemonThread {

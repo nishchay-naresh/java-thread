@@ -25,10 +25,13 @@ A thread can be in one of the following states:
 +	TERMINATED
 
 ### thread priorities
++   Thread.MIN_PRIORITY = 1
++   Thread.NORM_PRIORITY = 5
++   Thread.MAX_PRIORITY = 10
 
 
 ### demon thread
-
+The purpose of daemon threads is serving user threads, there’s no need to keep daemon threads running if all user threads terminate. That’s why the JVM will exit if there are only daemon threads running.
 
 ### method to prevent thread execution
 1.	t.join()
@@ -38,7 +41,7 @@ A thread can be in one of the following states:
 
 ### synchronization
 1.	sharing single resource across multiple threads
-2.	read-write problem
+2.	data race - read write problem
 3.	deadlock
 
 ### inter-thread communication
@@ -54,7 +57,13 @@ A thread can be in one of the following states:
 Exploring java concurrent Package
 
 
-### Lock
+### Lock & Condition
++   java.util.concurrent.locks.Lock
++   java.util.concurrent.locks.ReentrantLock
+
+
++   java.util.concurrent.locks.ReadWriteLock
++   java.util.concurrent.locks.ReentrantReadWriteLock
 
 ### Callable & Future
 
