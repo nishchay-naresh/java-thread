@@ -2,14 +2,14 @@ package com.nishchay.thread.threadcommunication.nthreads.splittask;
 
 import java.util.concurrent.Semaphore;
 
-public class SyncTask implements Runnable{
+public class SyncTaskSemaphore implements Runnable{
 
     private Semaphore current;
     private Semaphore next;
     private int start;
     private int end;
 
-    public SyncTask(int start, int end, Semaphore current, Semaphore next) {
+    public SyncTaskSemaphore(int start, int end, Semaphore current, Semaphore next) {
         this.start = start;
         this.end = end;
         this.current = current;

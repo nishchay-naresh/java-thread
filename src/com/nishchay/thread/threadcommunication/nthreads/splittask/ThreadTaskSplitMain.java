@@ -10,11 +10,12 @@ import java.util.concurrent.Semaphore;
 * Write an implementation for this, write code in most generic possible manner, make this noOfThreads as configurable
 *
 * */
-public class ThreadTaskSplit {
+public class ThreadTaskSplitMain {
 
     public static void main(String[] args) {
 
-        taskSplitUsingIndividualThreadsSync();
+
+        taskSplitUsingIndividualThreadsSyncSemaphore();
 
 //        taskSplitUsingIndividualThreads();
 //        taskSplitUsingThreadPool();
@@ -25,7 +26,7 @@ public class ThreadTaskSplit {
      * Splitting up the task among multiple threads (here 4), by creating individual thread
      * Need to synchronise the threads to get an ordered output
      */
-    private static void taskSplitUsingIndividualThreadsSync() {
+    private static void taskSplitUsingIndividualThreadsSyncSemaphore() {
 
 
         int noOfThreads = 4;
@@ -40,16 +41,16 @@ public class ThreadTaskSplit {
 
             switch (i) {
                 case 1:
-                    new Thread(new SyncTask(1,25, s1, s2), "Thread" + i).start();
+                    new Thread(new SyncTaskSemaphore(1,25, s1, s2), "Thread" + i).start();
                     break;
                 case 2:
-                    new Thread(new SyncTask(26,50, s2, s3), "Thread" + i).start();
+                    new Thread(new SyncTaskSemaphore(26,50, s2, s3), "Thread" + i).start();
                     break;
                 case 3:
-                    new Thread(new SyncTask(51,75, s3, s4), "Thread" + i).start();
+                    new Thread(new SyncTaskSemaphore(51,75, s3, s4), "Thread" + i).start();
                     break;
                 case 4:
-                    new Thread(new SyncTask(76,100, s4, s1), "Thread" + i).start();
+                    new Thread(new SyncTaskSemaphore(76,100, s4, s1), "Thread" + i).start();
                     break;
             }
 
