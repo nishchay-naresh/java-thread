@@ -31,9 +31,10 @@ public class SyncTask implements Runnable{
     }
 
     private void printNumbers(int start, int end) {
+        System.out.println("------------------------------------------");
         for (int i = start; i <= end; i++) {
             System.out.println(Thread.currentThread().getName() +  " - " + i);
         }
-        System.out.println("------------------------------------------");
+
     }
 }

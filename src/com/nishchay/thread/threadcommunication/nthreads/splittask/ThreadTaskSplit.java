@@ -14,13 +14,10 @@ public class ThreadTaskSplit {
 
     public static void main(String[] args) {
 
-        ThreadTaskSplit ref =  new ThreadTaskSplit();
+        taskSplitUsingIndividualThreadsSync();
 
-        ref.taskSplitUsingIndividualThreadsSync();
-
-
-//        ref.taskSplitUsingIndividualThreads();
-//        ref.taskSplitUsingThreadPool();
+//        taskSplitUsingIndividualThreads();
+//        taskSplitUsingThreadPool();
 
     }
 
@@ -28,7 +25,7 @@ public class ThreadTaskSplit {
      * Splitting up the task among multiple threads (here 4), by creating individual thread
      * Need to synchronise the threads to get an ordered output
      */
-    private void taskSplitUsingIndividualThreadsSync() {
+    private static void taskSplitUsingIndividualThreadsSync() {
 
 
         int noOfThreads = 4;
@@ -62,46 +59,41 @@ public class ThreadTaskSplit {
 /*
  * Splitting up the task among multiple threads (here 4), by creating individual thread
  */
-    private void taskSplitUsingIndividualThreads() {
+    private static void taskSplitUsingIndividualThreads() {
 
         int startCount = 1;
         int finalCount = 100;
+        final int noOfThreads = 4;
 
-        int noOfThreads = 4;
-        int taskSplitWindow;
+        // Splitting up the task based on no of threads
+        int taskSplitWindow = finalCount / noOfThreads;
 
         for (int i = 1; i <= noOfThreads; i++) {
-            // Splitting up the task based on no of threads
-            taskSplitWindow = finalCount / noOfThreads;
-
             Task task = new Task(startCount, startCount + taskSplitWindow);
             new Thread(task, "Thread " + i).start();
 
             startCount = startCount + taskSplitWindow;
-
         }
     }
 
 /*
 * Splitting up the task among multiple threads (here 4), by thread pool executors
 */
-    private void taskSplitUsingThreadPool() {
+    private static void taskSplitUsingThreadPool() {
 
         int startCount = 1;
         int finalCount = 100;
+        final int noOfThreads = 4;
 
-        int noOfThreads = 4;
-        int taskSplitWindow;
-
+        // Splitting up the task based on no of threads
+        int taskSplitWindow = finalCount / noOfThreads;
 
         ExecutorService executorService = Executors.newFixedThreadPool(noOfThreads);
 
         for (int i = 1; i <= noOfThreads; i++) {
-            // Splitting up the task based on no of threads
-            taskSplitWindow = finalCount / noOfThreads;
 
             Task task = new Task(startCount, startCount + taskSplitWindow);
-            executorService.submit(new Task(startCount, startCount + taskSplitWindow));
+            executorService.submit(task);
 
             startCount = startCount + taskSplitWindow;
         }
