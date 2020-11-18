@@ -2,7 +2,7 @@ package com.nishchay.thread.threadcommunication.nthreads.splittask;
 
 public class Permission {
 
-    private boolean isAllowed = false;
+    private boolean isAllowed;
 
     Permission() {
         isAllowed = false;
