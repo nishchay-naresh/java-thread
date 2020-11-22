@@ -1,6 +1,6 @@
 package com.nishchay.thread.threadcommunication.nthreads.splittask;
 
-public class SyncTaskBoolean implements Runnable{
+public class SyncTaskBoolean implements Runnable {
 
     private int start, end;
     Permission current;
@@ -38,7 +38,7 @@ public class SyncTaskBoolean implements Runnable{
 
     private void printNumbers(int start, int end) {
         for (int i = start; i < end; i++) {
-            System.out.println(Thread.currentThread().getName() +  " - " + i);
+            System.out.println(Thread.currentThread().getName() + " - " + i);
         }
     }
 }

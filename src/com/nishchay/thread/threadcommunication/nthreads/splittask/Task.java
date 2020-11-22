@@ -1,6 +1,6 @@
 package com.nishchay.thread.threadcommunication.nthreads.splittask;
 
-public class Task implements Runnable{
+public class Task implements Runnable {
 
     private int start;
     private int end;
@@ -13,12 +13,12 @@ public class Task implements Runnable{
 
     @Override
     public void run() {
-        printNumbers(start,end);
+        printNumbers(start, end);
     }
 
     private void printNumbers(int start, int end) {
         for (int i = start; i < end; i++) {
-            System.out.println(Thread.currentThread().getName() +  " - " + i);
+            System.out.println(Thread.currentThread().getName() + " - " + i);
         }
     }
 }

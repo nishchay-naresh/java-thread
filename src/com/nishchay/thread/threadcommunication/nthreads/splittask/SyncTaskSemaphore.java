@@ -2,7 +2,7 @@ package com.nishchay.thread.threadcommunication.nthreads.splittask;
 
 import java.util.concurrent.Semaphore;
 
-public class SyncTaskSemaphore implements Runnable{
+public class SyncTaskSemaphore implements Runnable {
 
     private Semaphore current;
     private Semaphore next;
@@ -33,7 +33,7 @@ public class SyncTaskSemaphore implements Runnable{
     private void printNumbers(int start, int end) {
         System.out.println("------------------------------------------");
         for (int i = start; i <= end; i++) {
-            System.out.println(Thread.currentThread().getName() +  " - " + i);
+            System.out.println(Thread.currentThread().getName() + " - " + i);
         }
 
     }

@@ -6,10 +6,10 @@ import java.util.concurrent.Semaphore;
 
 
 /*
-* We need to distribute this task of print numbers between 1-100, among some (say n) threads.
-* Write an implementation for this, write code in most generic possible manner, make this noOfThreads as configurable
-*
-* */
+ * We need to distribute this task of print numbers between 1-100, among some (say n) threads.
+ * Write an implementation for this, write code in most generic possible manner, make this noOfThreads as configurable
+ *
+ * */
 public class ThreadTaskSplitMain {
 
     public static void main(String[] args) {
@@ -41,25 +41,25 @@ public class ThreadTaskSplitMain {
 
             switch (i) {
                 case 1:
-                    new Thread(new SyncTaskSemaphore(1,25, s1, s2), "Thread" + i).start();
+                    new Thread(new SyncTaskSemaphore(1, 25, s1, s2), "Thread" + i).start();
                     break;
                 case 2:
-                    new Thread(new SyncTaskSemaphore(26,50, s2, s3), "Thread" + i).start();
+                    new Thread(new SyncTaskSemaphore(26, 50, s2, s3), "Thread" + i).start();
                     break;
                 case 3:
-                    new Thread(new SyncTaskSemaphore(51,75, s3, s4), "Thread" + i).start();
+                    new Thread(new SyncTaskSemaphore(51, 75, s3, s4), "Thread" + i).start();
                     break;
                 case 4:
-                    new Thread(new SyncTaskSemaphore(76,100, s4, s1), "Thread" + i).start();
+                    new Thread(new SyncTaskSemaphore(76, 100, s4, s1), "Thread" + i).start();
                     break;
             }
 
         }
     }
 
-/*
- * Splitting up the task among multiple threads (here 4), by creating individual thread
- */
+    /*
+     * Splitting up the task among multiple threads (here 4), by creating individual thread
+     */
     private static void taskSplitUsingIndividualThreads() {
 
         int startCount = 1;
@@ -77,9 +77,9 @@ public class ThreadTaskSplitMain {
         }
     }
 
-/*
-* Splitting up the task among multiple threads (here 4), by thread pool executors
-*/
+    /*
+     * Splitting up the task among multiple threads (here 4), by thread pool executors
+     */
     private static void taskSplitUsingThreadPool() {
 
         int startCount = 1;

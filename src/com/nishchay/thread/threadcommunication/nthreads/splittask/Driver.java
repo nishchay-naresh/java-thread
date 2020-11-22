@@ -15,7 +15,7 @@ public class Driver {
         int finalCount = 100;
         final int noOfThreads = 5;
 
-        Permission[] permissionArray =  new Permission[noOfThreads];
+        Permission[] permissionArray = new Permission[noOfThreads];
 
         for (int i = 0; i < noOfThreads; i++) {
             permissionArray[i] = new Permission();
@@ -29,8 +29,8 @@ public class Driver {
         int curr, next;
         for (int i = 1; i <= noOfThreads; i++) {
 
-            curr = i -1;
-            next = i == noOfThreads? 0 : i;
+            curr = i - 1;
+            next = i == noOfThreads ? 0 : i;
             Runnable task = new SyncTaskBoolean(startCount, startCount + taskSplitWindow, permissionArray[curr], permissionArray[next]);
             new Thread(task, "Thread " + i).start();
 
