@@ -13,12 +13,6 @@ class ProducerAL extends Thread {
             String msg = "Hello-" + i;
             queue.enqueue(msg);
             System.out.println(Thread.currentThread().getName() + " produced - " + msg);
-
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
         }
     }
 }
