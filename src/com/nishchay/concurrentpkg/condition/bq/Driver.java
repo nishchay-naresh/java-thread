@@ -22,26 +22,16 @@ public class Driver {
 
     public static void produce(BlockingQueue<Integer> bq) {
         for (int i = 1; i <= 10; i++) {
-            try {
-                bq.put(i);
-                System.out.println(Thread.currentThread().getName() + " produces: " + i);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            bq.put(i);
+            System.out.println(Thread.currentThread().getName() + " produces: " + i);
         }
     }
 
     public static void consume(BlockingQueue<Integer> bq) {
         Integer data;
         for (int i = 1; i <= 10; i++) {
-            try {
-                data = bq.take();
-                System.out.println(Thread.currentThread().getName() + " consumes: " + data);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            data = bq.take();
+            System.out.println(Thread.currentThread().getName() + " consumes: " + data);
         }
     }
-
-
 }
