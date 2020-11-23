@@ -48,7 +48,7 @@ public class BlockingQueue<T> {
                 }
             }
 
-            // Appends the specified element to the end of this list.
+            // Append specified element to the end of list.
             queue.add(element);
             removeCondition.signal();
         } finally {
