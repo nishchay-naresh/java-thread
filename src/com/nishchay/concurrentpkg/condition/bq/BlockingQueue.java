@@ -28,10 +28,18 @@ public class BlockingQueue<T> {
         removeCondition = lock.newCondition();
     }
 
+    public boolean isFull() {
+        return queue.size() == capacity;
+    }
+
+    public boolean isEmpty() {
+        return queue.size() == 0;
+    }
+
     public void put(T element) throws InterruptedException {
         lock.lock();
         try {
-            while (queue.size() == capacity) {
+            while ( isFull()) {
                 addCondition.await();
             }
 
@@ -46,7 +54,7 @@ public class BlockingQueue<T> {
     public T take() throws InterruptedException {
         lock.lock();
         try {
-            while (queue.isEmpty()) {
+            while (isEmpty()) {
                 removeCondition.await();
             }
 
