@@ -1,6 +1,7 @@
-package com.nishchay.concurrentpkg.condition.pc;
+package com.nishchay.concurrentpkg.condition.pc.others;
 
-public class ProducerConsumerSolutionUsingLock {
+
+public class PCUsingLockEx {
 
     public static void main(String[] args) {
 
@@ -14,6 +15,7 @@ public class ProducerConsumerSolutionUsingLock {
         // starting producer and consumer threads
         p.start();
         c.start();
+
     }
 
 }

@@ -1,4 +1,4 @@
-package com.nishchay.concurrentpkg.condition.pc;
+package com.nishchay.concurrentpkg.condition.pc.others;
 
 public class Consumer extends Thread {
     ProducerConsumerImpl pc;
@@ -16,4 +16,6 @@ public class Consumer extends Thread {
             e.printStackTrace();
         }
     }
+
+
 }
