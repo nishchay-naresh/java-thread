@@ -1,5 +1,10 @@
 package com.nishchay.concurrentpkg.condition.bq;
 
+/*
+ * Created two static methods corresponds to Producer task & consumer task
+ * then spawning two thread - prodThread, consThread using lambda exp
+ *
+ * */
 public class Driver {
 
     public static void main(String[] args) {
