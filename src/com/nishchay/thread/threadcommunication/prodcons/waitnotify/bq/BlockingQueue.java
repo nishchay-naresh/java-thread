@@ -4,9 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /*
- * Designing a BlockingQueue using Lock & Condition
+ * Designing a BlockingQueue using Synchronisation & wait-notify
  * Designed it for the generic data type
- * Underlying data structure is LinkList
+ * Underlying data structure is ArrayList
+ *
  * */
 public class BlockingQueue<T> {
 
