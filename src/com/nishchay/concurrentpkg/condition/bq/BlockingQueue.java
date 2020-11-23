@@ -5,14 +5,15 @@ import java.util.Queue;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
+
 /*
-* Designing a BlockingQueue using Lock & Condition
-* Designed it for the generic data type
-* Underlying data structure is LinkList
-* */
+ * Designing a BlockingQueue using Lock & Condition
+ * Designed it for the generic data type
+ * Underlying data structure is LinkList
+ * */
 public class BlockingQueue<T> {
 
-    private Queue<T> queue = new LinkedList<T>();
+    private Queue<T> queue = new LinkedList<>();
     private int capacity;
 
     private final Lock lock;
@@ -36,11 +37,15 @@ public class BlockingQueue<T> {
         return queue.size() == 0;
     }
 
-    public void put(T element) throws InterruptedException {
+    public void put(T element) {
         lock.lock();
         try {
-            while ( isFull()) {
-                addCondition.await();
+            while (isFull()) {
+                try {
+                    addCondition.await();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
 
             // Appends the specified element to the end of this list.
@@ -51,11 +56,15 @@ public class BlockingQueue<T> {
         }
     }
 
-    public T take() throws InterruptedException {
+    public T take() {
         lock.lock();
         try {
             while (isEmpty()) {
-                removeCondition.await();
+                try {
+                    removeCondition.await();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
 
             // Retrieves and removes the head of this list. Removes the first occurrence if many
