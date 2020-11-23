@@ -1,7 +1,7 @@
 package com.nishchay.concurrentpkg.condition.bq;
 
 /*
- * Created two static methods corresponds to Producer task & consumer task
+ * Created two static methods corresponds to producer task & consumer task
  * then spawning two thread - prodThread, consThread using lambda exp
  *
  * */
