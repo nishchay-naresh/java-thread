@@ -25,11 +25,8 @@ public class Driver {
 
         SharedPrinter sharedPrinter = new SharedPrinter(1, 2, true);
 
-        Thread prodThread = new Thread(() -> printOdd(sharedPrinter), "Odd Thread");
-        prodThread.start();
-
-        Thread consThread = new Thread(() -> printEven(sharedPrinter), "Even Thread");
-        consThread.start();
+        new Thread(() -> printOdd(sharedPrinter), "Odd Thread").start();
+        new Thread(() -> printEven(sharedPrinter), "Even Thread").start();
 
     }
 
