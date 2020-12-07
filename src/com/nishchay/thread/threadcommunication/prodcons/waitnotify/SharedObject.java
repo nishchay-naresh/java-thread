@@ -1,6 +1,7 @@
 package com.nishchay.thread.threadcommunication.prodcons.waitnotify;
 
 public class SharedObject {
+
     private int data;
     private boolean isProdTurn = true;
 

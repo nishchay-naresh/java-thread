@@ -2,7 +2,7 @@ package com.nishchay.thread.threadcommunication.prodcons.waitnotify;
 
 public class ProdConsWaitNotify {
 
-    public static final int LIMIT = 5;
+    public static final int LIMIT = 10;
 
     public static void main(String[] args) {
 
