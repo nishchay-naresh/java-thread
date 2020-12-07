@@ -12,6 +12,7 @@ public class SharedObject {
             try {
                 wait();
             } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         }
         data = value;
@@ -24,6 +25,7 @@ public class SharedObject {
             try {
                 wait();
             } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         }
         isProdTurn = true;
