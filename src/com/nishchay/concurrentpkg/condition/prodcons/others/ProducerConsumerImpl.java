@@ -1,4 +1,4 @@
-package com.nishchay.concurrentpkg.condition.pc.others;
+package com.nishchay.concurrentpkg.condition.prodcons.others;
 
 import java.util.LinkedList;
 import java.util.Queue;

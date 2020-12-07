@@ -1,4 +1,4 @@
-package com.nishchay.concurrentpkg.condition.pc.doublecondition;
+package com.nishchay.concurrentpkg.condition.prodcons.doublecondition;
 
 public class Producer implements Runnable {
 

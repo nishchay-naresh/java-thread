@@ -1,4 +1,4 @@
-package com.nishchay.concurrentpkg.condition.pc.singlecondition;
+package com.nishchay.concurrentpkg.condition.prodcons.singlecondition;
 
 
 import java.util.List;

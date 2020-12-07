@@ -1,4 +1,4 @@
-package com.nishchay.concurrentpkg.condition.pc.others;
+package com.nishchay.concurrentpkg.condition.prodcons.others;
 
 
 public class PCUsingLockEx {

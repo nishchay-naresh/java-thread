@@ -1,21 +1,20 @@
-package com.nishchay.concurrentpkg.condition.pc.others;
+package com.nishchay.concurrentpkg.condition.prodcons.others;
 
-public class Consumer extends Thread {
+public class Producer extends Thread {
     ProducerConsumerImpl pc;
 
-    public Consumer(ProducerConsumerImpl sharedObject) {
-        super("CONSUMER");
+    public Producer(ProducerConsumerImpl sharedObject) {
+        super("PRODUCER");
         this.pc = sharedObject;
     }
 
     @Override
     public void run() {
         try {
-            pc.get();
+            pc.put();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
-
 
 }
