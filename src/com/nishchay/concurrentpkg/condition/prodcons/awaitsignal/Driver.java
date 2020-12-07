@@ -14,8 +14,8 @@ public class Driver {
 
     }
 
-//    instead of creating a new class for thread implementation, putting thread logic in a method
-//    later invoking these method thought threads created using lambdas
+    //    instead of creating a new class for thread implementation, putting thread logic in a method
+    //    later invoking these method thought threads created using lambdas
     public static void produce(SharedObject sharedObject) {
         for (int i = 1; i <= LIMIT; i++) {
             sharedObject.produce(i);
