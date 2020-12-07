@@ -11,7 +11,7 @@ public class SharedPrinter {
         this.oddThreadTurn = oddThreadTurn;
     }
 
-    public synchronized void printFirst() {
+    public synchronized void printOdd() {
 
         while (!oddThreadTurn) {
             try {
@@ -26,7 +26,7 @@ public class SharedPrinter {
         notify();
     }
 
-    public synchronized void printSecond() {
+    public synchronized void printEven() {
 
         while (oddThreadTurn) {
             try {
