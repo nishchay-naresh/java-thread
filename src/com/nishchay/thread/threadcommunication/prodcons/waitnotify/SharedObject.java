@@ -4,7 +4,7 @@ public class SharedObject {
     private int data;
     private boolean isProdTurn = true;
 
-    public synchronized void put(int value) {
+    public synchronized void produce(int value) {
         // why did we use while(busy == false) instead of if(busy == false)
         // because of spurious wake ups
         while (!isProdTurn) {
@@ -18,7 +18,7 @@ public class SharedObject {
         notify();
     }
 
-    public synchronized int get() {
+    public synchronized int consume() {
         while (isProdTurn) {
             try {
                 wait();
