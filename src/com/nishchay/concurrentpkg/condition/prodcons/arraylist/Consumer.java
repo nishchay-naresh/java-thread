@@ -1,4 +1,4 @@
-package com.nishchay.concurrentpkg.condition.prodcons.doublecondition;
+package com.nishchay.concurrentpkg.condition.prodcons.arraylist;
 
 public class Consumer implements Runnable {
 
