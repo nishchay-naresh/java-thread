@@ -1,6 +1,6 @@
 package com.nishchay.concurrentpkg.pool.fixedpoolrunnable;
 
-class PrintJob implements Runnable{
+public class PrintJob implements Runnable{
 
     private String name;
 
