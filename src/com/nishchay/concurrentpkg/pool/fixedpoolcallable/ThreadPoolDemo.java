@@ -6,21 +6,20 @@ public class ThreadPoolDemo {
 
     public static void main(String[] args) throws InterruptedException, ExecutionException {
 
-        ExecutorService e1 = Executors.newFixedThreadPool(10);
-        System.out.println("Before submit  : " + ((ThreadPoolExecutor) e1).getActiveCount());
+        ExecutorService threadPool = Executors.newFixedThreadPool(10);
+        System.out.println("Before submit  : " + ((ThreadPoolExecutor) threadPool).getActiveCount());
 
         for (int i = 0; i < 6; i++) {
             Task task = new Task();
-            Future<String> future = e1.submit(task);
-            System.out.println("During Execution  : " + ((ThreadPoolExecutor) e1).getActiveCount());
+            Future<String> future = threadPool.submit(task);
+            System.out.println("During Execution  : " + ((ThreadPoolExecutor) threadPool).getActiveCount());
             System.out.println(future.get());
         }
 
-        System.out.println("After submit  : " + ((ThreadPoolExecutor) e1).getActiveCount());
-        e1.shutdown();
+        System.out.println("After submit  : " + ((ThreadPoolExecutor) threadPool).getActiveCount());
+        threadPool.shutdown();
+
     }
 
 
 }
-
-
