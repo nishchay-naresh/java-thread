@@ -8,7 +8,7 @@ public class ThreadFactoryDemo {
 
     public static void main(String[] args) {
 
-//        fixedThreadPoolWithCustomThreadNamesDemo();
+        fixedThreadPoolWithCustomThreadNamesDemo();
         threadPoolWithExceptionHandler();
 
     }
