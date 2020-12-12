@@ -2,6 +2,12 @@ package com.nishchay.thread.jmm;
 
 public class VolatileExample {
 
+    public static void main(String[] args) {
+        VolatileExample ref = new VolatileExample();
+        new Thread(ref::writer).start();
+        new Thread(ref::reader).start();
+    }
+
     int x = 0, y = 0, z = 0;
     volatile boolean v;
 
@@ -14,24 +20,26 @@ public class VolatileExample {
 
     public void reader() {
         int r1, r2, r3;
-        if (v == true) {
+        if (v) {
             // guarantee to see 42, bcus x can be cached as well
-            r1 = x ;
+            r1 = x;
             r2 = y;
             r3 = z;
+            System.out.printf("r1 - %d \t r2 - %d \t r3 - %d", r1, r2, r3);
         }
+
     }
 }
 
 /*
-*   x = 42
-*   v = true -> creating a barrier. (All the things prior to this are happens before)
-*               // write operation -> write barrier
-*               // read operation -> read barrier
-*   y = 43
-*   z = 44
-*
-* */
+ *   x = 42
+ *   v = true -> creating a barrier. (All the things prior to this are happens before)
+ *               // write operation -> write barrier
+ *               // read operation -> read barrier
+ *   y = 43
+ *   z = 44
+ *
+ * */
 
 /*
 *   Volatile solves below 3 issues of java concurrency :
