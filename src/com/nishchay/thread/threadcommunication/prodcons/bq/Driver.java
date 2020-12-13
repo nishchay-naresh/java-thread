@@ -1,4 +1,4 @@
-package com.nishchay.thread.threadcommunication.prodcons.waitnotify.bq;
+package com.nishchay.thread.threadcommunication.prodcons.bq;
 
 /**
  * Created two static methods corresponds to producer task & consumer task

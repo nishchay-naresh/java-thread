@@ -1,4 +1,4 @@
-package com.nishchay.thread.threadcommunication.prodcons.waitnotify.bq;
+package com.nishchay.thread.threadcommunication.prodcons.bq;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,33 +28,32 @@ public class BlockingQueue<T> {
     }
 
     public synchronized void put(T element) {
-
         while (isFull()) {
-            try {
-                this.wait();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            waitThread();
+        }
+        if(isEmpty()){
+            this.notify();
         }
         // Append specified element to the end of list.
         dataList.add(element);
-        this.notify();
     }
 
     public synchronized T take() {
-
         while (isEmpty()) {
-            try {
-                this.wait();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            waitThread();
         }
-
+        if(isFull()){
+            this.notify();
+        }
         // picking up the element from start
-        T message = dataList.remove(0);
-        this.notify();
-        return message;
+        return dataList.remove(0);
     }
 
+    public void waitThread(){
+        try {
+            this.wait();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 }
