@@ -11,7 +11,7 @@ public class Driver {
     public static void main(String[] args) {
 
         final int BUFFER_SIZE = 3;
-        BlockingQueue<Integer> queue = new BlockingQueue<>(BUFFER_SIZE);
+        BlockingQueue<Integer> queue = new BlockingQueue<Integer>(BUFFER_SIZE);
 
         Thread prodThread = new Thread(() -> produce(queue), "Producer Thread");
         prodThread.start();
