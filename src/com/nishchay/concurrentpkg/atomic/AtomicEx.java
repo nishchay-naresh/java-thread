@@ -1,12 +1,15 @@
 package com.nishchay.concurrentpkg.atomic;
 
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class AtomicEx {
 
     public static void main(String[] args) {
 
-        atomicIntegerDemo();
+//        atomicIntegerDemo();
+
+        atomicReferenceDemo();
 
     }
 
@@ -42,6 +45,38 @@ public class AtomicEx {
         //Subtracting From the AtomicInteger Value
         // decrementAndGet() - subtracts 1 from the AtomicInteger value and returns its value after the subtraction
         // getAndDecrement() - subtracts 1 from the AtomicInteger value but returns the value the AtomicInteger had before the subtraction.
+
+    }
+
+    public static void atomicReferenceDemo() {
+
+        // untyped AtomicReference get() example
+        AtomicReference atomicReference = new AtomicReference("first value referenced");
+        String referenceValue = (String) atomicReference.get();
+        System.out.println("referenceValue = " + referenceValue);
+
+        // typed AtomicReference example
+        AtomicReference<String> atomicReferenceTyped =
+                new AtomicReference<>("first value referenced");
+
+        referenceValue = (String) atomicReference.get();
+        System.out.println("referenceValue = " + referenceValue);
+
+        // Setting the AtomicReference Reference - set() method
+        AtomicReference<String> atomicReference1 = new AtomicReference<>();
+        atomicReference1.set("New object referenced");
+        System.out.println("atomicReference1.get() = " + atomicReference1.get());
+
+        // Comparing and Setting the AtomicReference Reference
+        String initialReference = "initial value referenced";
+        AtomicReference<String> atomicStringReference = new AtomicReference<>(initialReference);
+
+        String newReference = "new value referenced";
+        boolean exchanged = atomicStringReference.compareAndSet(initialReference, newReference);
+        System.out.println("exchanged: " + exchanged); // true
+
+        exchanged = atomicStringReference.compareAndSet(initialReference, newReference);
+        System.out.println("exchanged: " + exchanged); // false
 
     }
 }
