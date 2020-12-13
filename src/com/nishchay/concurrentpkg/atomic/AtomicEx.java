@@ -7,7 +7,7 @@ public class AtomicEx {
 
     public static void main(String[] args) {
 
-//        atomicIntegerDemo();
+        atomicIntegerDemo();
 
         atomicReferenceDemo();
 
@@ -21,6 +21,7 @@ public class AtomicEx {
 
         // Getting the AtomicInteger Value
         int theValue = atomicInteger.get();
+        System.out.println("theValue = " + theValue);
 
         // Setting the AtomicInteger Value
         atomicInteger.set(234);
@@ -51,15 +52,13 @@ public class AtomicEx {
     public static void atomicReferenceDemo() {
 
         // untyped AtomicReference get() example
-        AtomicReference atomicReference = new AtomicReference("first value referenced");
-        String referenceValue = (String) atomicReference.get();
-        System.out.println("referenceValue = " + referenceValue);
+        // AtomicReference atomicReference = new AtomicReference("first value referenced");
 
         // typed AtomicReference example
         AtomicReference<String> atomicReferenceTyped =
                 new AtomicReference<>("first value referenced");
 
-        referenceValue = (String) atomicReference.get();
+        String referenceValue = atomicReferenceTyped.get();
         System.out.println("referenceValue = " + referenceValue);
 
         // Setting the AtomicReference Reference - set() method
