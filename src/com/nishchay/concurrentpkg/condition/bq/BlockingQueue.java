@@ -37,17 +37,13 @@ public class BlockingQueue<T> {
         return queue.size() == 0;
     }
 
-    public void put(T element) {
+    public void put(T element) throws InterruptedException {
         lock.lock();
         try {
             while (isFull()) {
-                try {
-                    addCondition.await();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+                addCondition.await();
             }
-
+            
             // Append specified element to the end of list.
             queue.add(element);
             removeCondition.signal();
@@ -56,15 +52,11 @@ public class BlockingQueue<T> {
         }
     }
 
-    public T take() {
+    public T take() throws InterruptedException {
         lock.lock();
         try {
             while (isEmpty()) {
-                try {
-                    removeCondition.await();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+                removeCondition.await();
             }
 
             // Retrieves and removes the head of this list. Removes the first occurrence if many
