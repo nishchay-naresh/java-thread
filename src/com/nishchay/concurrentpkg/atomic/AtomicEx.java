@@ -174,11 +174,4 @@ public class AtomicEx {
 
     }
 
-    // Getting the AtomicStampedReference Reference
-    // Getting the AtomicStampedReference Stamp
-    private static void atomicStampedReferenceDemo1() {
-
-    }
-
-
 }
