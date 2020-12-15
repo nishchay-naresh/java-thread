@@ -17,13 +17,12 @@ public class PrintJob implements Runnable {
     @Override
     public void run() {
 
-        Printer printer = null;
         try {
             //  semaphore.acquireUninterruptibly(); // doesn't throw InterruptedException
             semaphore.acquire(); // decrease the permit count
             // critical section
             // once printer is been allocated to a thread, it's been removed from the ArrayList
-            printer = availablePrinters.remove(0);
+            Printer printer = availablePrinters.remove(0);
             Thread.sleep(2 * 1000);
             printer.usePrinter();
             availablePrinters.add(printer);
