@@ -21,9 +21,7 @@ public class BlockingQueue<T> {
     private final Condition removeCondition;
 
     public BlockingQueue(int size) {
-
         this.capacity = size;
-
         lock = new ReentrantLock();
         addCondition = lock.newCondition();
         removeCondition = lock.newCondition();
@@ -43,7 +41,6 @@ public class BlockingQueue<T> {
             while (isFull()) {
                 addCondition.await();
             }
-            
             // Append specified element to the end of list.
             queue.add(element);
             removeCondition.signal();
@@ -58,7 +55,6 @@ public class BlockingQueue<T> {
             while (isEmpty()) {
                 removeCondition.await();
             }
-
             // Retrieves and removes the head of this list. Removes the first occurrence if many
             T item = queue.remove();
             addCondition.signal();
