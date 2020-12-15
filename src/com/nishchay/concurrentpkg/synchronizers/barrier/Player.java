@@ -23,6 +23,6 @@ public class Player implements Runnable {
             e.printStackTrace();
         }
         System.out.printf("thread - %s , Player - %s has started playing game now %n",
-            Thread.currentThread().getName(),name);
-}
+                Thread.currentThread().getName(), name);
+    }
 }
