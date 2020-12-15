@@ -6,35 +6,31 @@ import java.util.concurrent.Semaphore;
 public class PrintJob implements Runnable {
 
     private Semaphore semaphore;
-    private List<Printer> printers;
+    private List<Printer> availablePrinters;
 
-    public PrintJob(Semaphore semaphore, List<Printer> printers) {
+    public PrintJob(Semaphore semaphore, List<Printer> availablePrinters) {
         this.semaphore = semaphore;
-        this.printers = printers;
+        this.availablePrinters = availablePrinters;
     }
 
 
     @Override
     public void run() {
-        int index;
+
+        Printer printer = null;
         try {
-            //            semaphore.acquireUninterruptibly(); // doesn't throw InterruptedException
+            //  semaphore.acquireUninterruptibly(); // doesn't throw InterruptedException
             semaphore.acquire(); // decrease the permit count
-
-            // below synchronization is required , bcus ArrayList is not threadsafe
-            // possible that two threads can acquire the same printer object after passing the permit test
-            synchronized (this){
-                index = semaphore.availablePermits();
-                // critical section
-                Printer printer = printers.get(index);
-                printer.usePrinter();
-            }
-
+            // critical section
+            // once printer is been allocated to a thread, it's been removed from the ArrayList
+            printer = availablePrinters.remove(0);
             Thread.sleep(2 * 1000);
+            printer.usePrinter();
+            availablePrinters.add(printer);
+            // once printer is free again, it's been added again to ArrayList
             semaphore.release(); // increase the permit count
-       } catch (InterruptedException e) {
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
     }
 }
