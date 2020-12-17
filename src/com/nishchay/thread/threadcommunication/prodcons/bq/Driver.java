@@ -16,14 +16,14 @@ public class Driver {
         final int BUFFER_SIZE = 4;
         BlockingQueue<String> queue = new BlockingQueue<>(BUFFER_SIZE);
 
-        Thread prodthread1 = new Thread(() -> produceTask(queue), "Producer 1");
-        Thread prodthread2 = new Thread(() -> produceTask(queue), "Producer 2");
+        Thread prodThread1 = new Thread(() -> produceTask(queue), "Producer 1");
+        Thread prodThread2 = new Thread(() -> produceTask(queue), "Producer 2");
 
         Thread consThread = new Thread(() -> consumeTask(queue), "Consumer 1");
 
         consThread.start();
-        prodthread1.start();
-        prodthread2.start();
+        prodThread1.start();
+        prodThread2.start();
 
     }
 
