@@ -40,7 +40,16 @@ The purpose of daemon threads is serving user threads, there’s no need to keep
 4.	Thread.yield()
 
 ### synchronization
-1.	sharing single resource across multiple threads
+1.	Mutual-Exclusion - sharing single resource across multiple threads
+
+Once can achieve the synchronization effect in two ways :
++   By synchronized method
++   By synchronized bocks
+
+And the Synchronized object lock could be
++   Object level lock - instance method / block
++   Class level lock - static method / block 
+
 2.	data race - read write problem
 3.	deadlock
 
