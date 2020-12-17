@@ -8,33 +8,42 @@ package com.nishchay.thread.threadcommunication.prodcons.bq;
 
 public class Driver {
 
+    static final int PROD_LOOP_COUNT = 5;
+    static final int CONS_LOOP_COUNT = 5 * 2;
+
     public static void main(String[] args) {
 
-        final int BUFFER_SIZE = 3;
-        BlockingQueue<Integer> queue = new BlockingQueue<Integer>(BUFFER_SIZE);
+        final int BUFFER_SIZE = 4;
+        BlockingQueue<String> queue = new BlockingQueue<>(BUFFER_SIZE);
 
-        Thread prodThread = new Thread(() -> produce(queue), "Producer Thread");
-        prodThread.start();
+        Thread prodthread1 = new Thread(() -> produceTask(queue), "Producer 1");
+        Thread prodthread2 = new Thread(() -> produceTask(queue), "Producer 2");
 
-        Thread consThread = new Thread(() -> consume(queue), "Consumer Thread");
+        Thread consThread = new Thread(() -> consumeTask(queue), "Consumer 1");
+
         consThread.start();
+        prodthread1.start();
+        prodthread2.start();
+
     }
 
 
-    public static void produce(BlockingQueue<Integer> bq) {
-        for (int i = 1; i <= 10; i++) {
-            bq.put(i);
-            System.out.println(Thread.currentThread().getName() + " produces: " + i);
+    public static void produceTask(BlockingQueue<String> bq) {
+        for (int i = 1; i <= PROD_LOOP_COUNT; i++) {
+            String name = Thread.currentThread().getName();
+            name = name +" - "+ i;
+            bq.put(name );
+            System.out.println(Thread.currentThread().getName() + " produces: " + name);
         }
     }
 
-    public static void consume(BlockingQueue<Integer> bq) {
-        Integer data;
-        for (int i = 1; i <= 10; i++) {
-            data = bq.take();
+    public static void consumeTask(BlockingQueue<String> bq) {
+        for (int i = 1; i <= CONS_LOOP_COUNT; i++) {
+            String data = bq.take();
             System.out.println(Thread.currentThread().getName() + " consumes: " + data);
         }
     }
+
 }
 
 /*
