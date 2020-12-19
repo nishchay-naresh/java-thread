@@ -31,9 +31,6 @@ public class MyBlockingQueue<T> {
         while (isFull()) {
             waitThread();
         }
-/*        if(isEmpty()){
-            this.notifyAll();
-        }*/
         // Append specified element to the end of list.
         dataList.add(element);
         this.notifyAll();
@@ -43,13 +40,9 @@ public class MyBlockingQueue<T> {
         while (isEmpty()) {
             waitThread();
         }
-/*        if(isFull()){
-            this.notifyAll();
-        }*/
         // picking up the element from start
         this.notifyAll();
         return dataList.remove(0);
-
     }
 
     public void waitThread(){
