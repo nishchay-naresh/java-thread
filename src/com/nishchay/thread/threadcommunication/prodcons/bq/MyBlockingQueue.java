@@ -9,12 +9,12 @@ import java.util.List;
  * Underlying data structure is ArrayList
  *
  * */
-public class BlockingQueue<T> {
+public class MyBlockingQueue<T> {
 
     private List<T> dataList;
     private int limit;
 
-    public BlockingQueue(int size) {
+    public MyBlockingQueue(int size) {
         this.limit = size;
         dataList = new ArrayList<>(limit);
     }
@@ -31,22 +31,25 @@ public class BlockingQueue<T> {
         while (isFull()) {
             waitThread();
         }
-        if(isEmpty()){
-            this.notify();
-        }
+/*        if(isEmpty()){
+            this.notifyAll();
+        }*/
         // Append specified element to the end of list.
         dataList.add(element);
+        this.notifyAll();
     }
 
     public synchronized T take() {
         while (isEmpty()) {
             waitThread();
         }
-        if(isFull()){
-            this.notify();
-        }
+/*        if(isFull()){
+            this.notifyAll();
+        }*/
         // picking up the element from start
+        this.notifyAll();
         return dataList.remove(0);
+
     }
 
     public void waitThread(){
