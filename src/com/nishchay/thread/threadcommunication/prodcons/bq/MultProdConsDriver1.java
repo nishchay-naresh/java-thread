@@ -2,7 +2,7 @@ package com.nishchay.thread.threadcommunication.prodcons.bq;
 
 /*
  * Created two static methods corresponds to producer task & consumer task
- * then spawning six thread(4 prod and 2 consumer) - prodThread1, prodThread2, consThread using lambda exp
+ * then spawning six thread(4 prod and 2 consumer) - prodThread1-4, consThread1-2 using lambda exp
  *
  * */
 public class MultProdConsDriver1 {
