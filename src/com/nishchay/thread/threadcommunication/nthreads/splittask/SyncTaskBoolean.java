@@ -3,8 +3,8 @@ package com.nishchay.thread.threadcommunication.nthreads.splittask;
 public class SyncTaskBoolean implements Runnable {
 
     private int start, end;
-    Permission current;
-    Permission next;
+    private Permission current;
+    private Permission next;
 
     public SyncTaskBoolean(int start, int end, Permission current, Permission next) {
         this.start = start;
