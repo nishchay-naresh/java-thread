@@ -44,13 +44,13 @@ public class ThreadTaskSplitMain {
                     new Thread(new SyncTaskSemaphore(1, 25, s1, s2), "Thread" + i).start();
                     break;
                 case 2:
-                    new Thread(new SyncTaskSemaphore(26, 50, s2, s3), "Thread" + i).start();
+                    new Thread(new SyncTaskSemaphore(25, 50, s2, s3), "Thread" + i).start();
                     break;
                 case 3:
-                    new Thread(new SyncTaskSemaphore(51, 75, s3, s4), "Thread" + i).start();
+                    new Thread(new SyncTaskSemaphore(50, 75, s3, s4), "Thread" + i).start();
                     break;
                 case 4:
-                    new Thread(new SyncTaskSemaphore(76, 100, s4, s1), "Thread" + i).start();
+                    new Thread(new SyncTaskSemaphore(75, 100, s4, s1), "Thread" + i).start();
                     break;
             }
 

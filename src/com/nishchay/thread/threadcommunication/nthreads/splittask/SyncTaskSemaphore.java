@@ -32,7 +32,7 @@ public class SyncTaskSemaphore implements Runnable {
 
     private void printNumbers(int start, int end) {
         System.out.println("------------------------------------------");
-        for (int i = start; i <= end; i++) {
+        for (int i = start; i < end; i++) {
             System.out.println(Thread.currentThread().getName() + " - " + i);
         }
 
