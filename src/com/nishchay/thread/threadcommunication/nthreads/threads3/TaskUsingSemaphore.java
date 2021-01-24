@@ -18,7 +18,8 @@ public class TaskUsingSemaphore implements Runnable {
     @Override
     public void run() {
 
-        for (int i = 1; i <= 5; i++) {
+        // each thread will print 5 nos, no will be prevNo  + 3
+        for (int i = 0; i < 5; i++) {
             printNumber(value);
             value = value + 3;
         }
