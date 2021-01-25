@@ -15,10 +15,17 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
  */
 public class ReadWriteList<E> {
 
-    private List<E> list = new ArrayList<>();
-    private ReadWriteLock rwLock = new ReentrantReadWriteLock();
- 
+    private List<E> list;
+    private ReadWriteLock rwLock;
+
+    public ReadWriteList() {
+        this.list = new ArrayList<>();
+        this.rwLock = new ReentrantReadWriteLock();
+    }
+
+    @SafeVarargs
     public ReadWriteList(E... initialElements) {
+        this();
         list.addAll(Arrays.asList(initialElements));
     }
  
