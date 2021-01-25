@@ -1,10 +1,14 @@
 package com.nishchay.concurrentpkg.lock.rwlock;
 
 /**
- * ReadWriteLockTest.java
- * Test program for understanding ReadWriteLock
+ * ReadWriteTest.java
+ * Test program is to understanding ReentrantReadWriteLock concept
+ * Leveraging its two locks (read & write lock ) for get & out propose
+ * Making non-thread safe collection ArrayList to ThreadSafe by guarding add() & get() method
+ *
  */
 public class ReadWriteLockTest {
+
     static final int READER_SIZE = 10;
     static final int WRITER_SIZE = 4;
  
