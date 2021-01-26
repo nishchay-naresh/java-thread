@@ -6,8 +6,8 @@ public class ThreadLocalSetGet {
     public static void main(String[] args) {
 
 //        setValue();
-        defaultAndRemove();
-//        overrideInitialValue();
+//        defaultAndRemove();
+        overrideInitialValue();
 }
 
     private static void setValue() {
@@ -43,15 +43,20 @@ public class ThreadLocalSetGet {
     private static void overrideInitialValue() {
 
 
-        ThreadLocal<String> genericThrdLocal =  new ThreadLocal(){
+/*        ThreadLocal<String> genericThrdLocal =  new ThreadLocal(){
             public String initialValue(){
                 return "java";
             }
         };
+*/
 
+        ThreadLocal<String> genericThrdLocal = ThreadLocal.withInitial(() -> "java");
         System.out.println(genericThrdLocal.get());
 
         genericThrdLocal.set("perl");
+        System.out.println(genericThrdLocal.get());
+
+        genericThrdLocal.set("ruby");
         System.out.println(genericThrdLocal.get());
 
         genericThrdLocal.remove();
