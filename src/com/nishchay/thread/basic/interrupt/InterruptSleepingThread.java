@@ -5,8 +5,8 @@ public class InterruptSleepingThread {
     public static void main(String[] args) {
 
         InterruptSleepingThread ref = new InterruptSleepingThread();
-        ref.interruptSleepingThread();
-        ref.interruptWaitingThread();
+//        ref.interruptSleepingThread();
+//        ref.interruptWaitingThread();
         ref.interruptNonBlockingThread();
     }
 
@@ -69,7 +69,7 @@ public class InterruptSleepingThread {
         t.start();
 
         try {
-            Thread.sleep(5);
+            Thread.sleep(3);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
