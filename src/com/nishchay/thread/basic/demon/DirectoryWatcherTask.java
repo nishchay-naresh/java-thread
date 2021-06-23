@@ -6,7 +6,7 @@ public class DirectoryWatcherTask implements Runnable {
     public void run() {
 
         while (true) {
-            System.out.print("checking directory for file update ...");
+            System.out.println("checking directory for file update ...");
 
 /*           try {
                Thread.sleep(1 * 1000);
