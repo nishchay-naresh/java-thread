@@ -10,10 +10,4 @@ public class NamedTask implements Runnable {
         }
     }
 
-    // Exception in thread "User Thread" java.lang.ArithmeticException: / by zero
-/*    public void run() {
-        System.out.println(10/0);
-    }
-*/
-
 }

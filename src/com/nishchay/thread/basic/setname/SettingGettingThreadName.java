@@ -7,7 +7,11 @@ public class SettingGettingThreadName {
         //Main thread name - main
         System.out.println("Main Thread name - " + Thread.currentThread().getName());
 
-        // user default name  - Thread-0
+        // user thread default name  - Thread-0, Thread-1, Thread-2 ..so on if not given names
+        Thread t0 = new Thread(() -> System.out.println("default name of thread - " + Thread.currentThread().getName()));
+        t0.start();
+
+        // user thread default name  - Thread-1, bcus Thread-0 is been used for last thread
         new Thread(new NamedTask()).start();
 
         // setting up name -  using constructor

@@ -2,6 +2,13 @@ package com.nishchay.thread.basic.priority;
 
 public class ThreadPriority {
 
+    /*
+     *      setPriority(1-10) argument value can be 1 to 10, else it will throw IllegalArgumentException
+     *         if (newPriority > MAX_PRIORITY || newPriority < MIN_PRIORITY) {
+     *                throw new IllegalArgumentException();
+     *          }
+     *
+     * */
     public static void main(String[] args) {
 
         // By default Main thread priority will be Thread.NORM_PRIORITY/5
