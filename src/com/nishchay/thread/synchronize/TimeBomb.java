@@ -1,6 +1,6 @@
 package com.nishchay.thread.synchronize;
 
-class TimeBomb extends Thread {
+public class TimeBomb extends Thread {
 
 	private String[] timeStr = { "Zero", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine" };
 	private Object lock;
