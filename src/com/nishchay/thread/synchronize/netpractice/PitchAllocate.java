@@ -1,9 +1,9 @@
 package com.nishchay.thread.synchronize.netpractice;
 
-class PitchAllocate implements Runnable {
+public class PitchAllocate implements Runnable {
 
-    Pitch pitch;
-    String playerName;
+    private Pitch pitch;
+    private String playerName;
 
     public PitchAllocate(Pitch pitch, String playerName) {
         this.pitch = pitch;
