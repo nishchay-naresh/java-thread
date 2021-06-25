@@ -1,8 +1,8 @@
 package com.nishchay.concurrentpkg.collection;
 
 public class Student {
-    String name;
-    int rank;
+    private String name;
+    private int rank;
 
     public Student(String name, int rank) {
         this.name = name;

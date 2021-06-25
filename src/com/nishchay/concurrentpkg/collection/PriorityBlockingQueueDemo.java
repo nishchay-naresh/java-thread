@@ -1,6 +1,8 @@
 package com.nishchay.concurrentpkg.collection;
 
 
+import java.util.Comparator;
+import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.PriorityBlockingQueue;
 
 public class PriorityBlockingQueueDemo {
@@ -14,7 +16,7 @@ public class PriorityBlockingQueueDemo {
 
     private static void pqMethod4IntegerOrdering() {
 
-        PriorityBlockingQueue<Integer> queue = new PriorityBlockingQueue<>();
+       BlockingQueue<Integer> queue = new PriorityBlockingQueue<>();
         queue.add(10);
         queue.add(2);
         queue.add(5);
@@ -25,10 +27,10 @@ public class PriorityBlockingQueueDemo {
         System.out.println(queue.poll());
     }
 
-    private static void pqMethod4CustomOrdering(){
+    private static void pqMethod4CustomOrdering() {
 
-        PriorityBlockingQueue<Student> queue1 =
-                new PriorityBlockingQueue<>(5, (e1,e2) -> e1.getRank() - e2.getRank());
+//        BlockingQueue<Student> queue1 = new PriorityBlockingQueue<>(5, (e1, e2) -> e1.getRank() - e2.getRank());
+        BlockingQueue<Student> queue1 = new PriorityBlockingQueue<>(5, Comparator.comparingInt(Student::getRank));
 
         queue1.add(new Student("a", 12));
         queue1.add(new Student("b", 1));

@@ -16,6 +16,7 @@ public class GetCMEDemo2Threads {
         list.add("perl");
         list.add("ruby");
         System.out.println("original list - " + list);
+
         // Exception in thread "main" java.util.ConcurrentModificationException
          Iterator<String> itr = list.iterator(); // iterator should assign prior to structural change
 
@@ -23,7 +24,7 @@ public class GetCMEDemo2Threads {
         t.start();
         t.join();
 
-//        Iterator<String> itr = list.iterator();
+//        Iterator<String> itr = list.iterator(); // if we take the iterator post structural modification, we wont get CME
         while (itr.hasNext()) {
             String item = itr.next();
             System.out.println(item);
@@ -31,8 +32,9 @@ public class GetCMEDemo2Threads {
         System.out.println("changed list - " + list);
     }
 
-    public static void addToList(List<String> list){
+    private static void addToList(List<String> list){
         list.add("python");
         list.add("php");
+        System.out.println("modified list -" + list);
     }
 }
