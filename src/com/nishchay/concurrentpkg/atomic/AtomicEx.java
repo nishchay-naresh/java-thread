@@ -8,10 +8,10 @@ public class AtomicEx {
 
     public static void main(String[] args) {
 
-//        atomicIntegerDemo();
+        atomicIntegerDemo();
 //        atomicReferenceDemo();
 
-        atomicStampedReferenceDemo();
+//        atomicStampedReferenceDemo();
 
     }
 
@@ -20,6 +20,10 @@ public class AtomicEx {
 
         //Creating an AtomicInteger
         // AtomicInteger atomicInteger = new AtomicInteger(); - creates an AtomicInteger with the initial value 0
+        // the default initial value of a AtomicInteger object will always be 0
+        System.out.println("default initial value of a AtomicInteger object = " + new AtomicInteger().get());
+
+
         AtomicInteger atomicInteger = new AtomicInteger(123);
 
         // Getting the AtomicInteger Value
