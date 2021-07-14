@@ -14,5 +14,10 @@ public class DeadlockDemo {
 
 }
 
-
+/*
+* O/P =>
+* Main is done
+* And process should be still running for indefinite time
+*
+* */
 

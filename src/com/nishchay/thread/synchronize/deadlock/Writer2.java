@@ -2,8 +2,8 @@ package com.nishchay.thread.synchronize.deadlock;
 
 public class Writer2 extends Thread {
 
-    Object book;
-    Object pen;
+    private Object book;
+    private Object pen;
 
     public Writer2(Object book, Object pen) {
         this.book = book;
