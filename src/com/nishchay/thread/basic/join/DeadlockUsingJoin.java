@@ -5,7 +5,7 @@ package com.nishchay.thread.basic.join;
 *   It's a rare scenario to form a deadlock with a single thread (which is main itself)
 *
 */
-public class JoinMainDeadlock {
+public class DeadlockUsingJoin {
 
     public static void main(String[] args) {
 
