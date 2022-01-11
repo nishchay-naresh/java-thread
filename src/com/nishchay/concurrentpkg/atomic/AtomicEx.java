@@ -9,16 +9,15 @@ public class AtomicEx {
     public static void main(String[] args) {
 
         atomicIntegerDemo();
-//        atomicReferenceDemo();
-
-//        atomicStampedReferenceDemo();
+        atomicIntegerFailEx();
+        atomicReferenceDemo();
+        atomicStampedReferenceDemo();
 
     }
 
 
     public static void atomicIntegerDemo() {
 
-        //Creating an AtomicInteger
         // AtomicInteger atomicInteger = new AtomicInteger(); - creates an AtomicInteger with the initial value 0
         // the default initial value of a AtomicInteger object will always be 0
         System.out.println("default initial value of a AtomicInteger object = " + new AtomicInteger().get());
@@ -26,11 +25,9 @@ public class AtomicEx {
 
         AtomicInteger atomicInteger = new AtomicInteger(123);
 
-        // Getting the AtomicInteger Value
         int theValue = atomicInteger.get();
         System.out.println("theValue = " + theValue);
 
-        // Setting the AtomicInteger Value
         atomicInteger.set(234);
 
         // Compare and Set the AtomicInteger Value
@@ -54,6 +51,15 @@ public class AtomicEx {
         // decrementAndGet() - subtracts 1 from the AtomicInteger value and returns its value after the subtraction
         // getAndDecrement() - subtracts 1 from the AtomicInteger value but returns the value the AtomicInteger had before the subtraction.
 
+    }
+
+    private static void atomicIntegerFailEx() {
+        AtomicInteger atomicInteger = new AtomicInteger(123);
+        int expectedValue = 123;
+        int newValue = 234;
+        System.out.println(atomicInteger.compareAndSet(expectedValue, newValue));
+        System.out.println("curr value - " + atomicInteger.get());
+        System.out.println(atomicInteger.compareAndSet(500, 1000));
     }
 
     public static void atomicReferenceDemo() {
