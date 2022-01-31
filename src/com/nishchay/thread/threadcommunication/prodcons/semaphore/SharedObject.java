@@ -5,10 +5,14 @@ import java.util.concurrent.Semaphore;
 public class SharedObject {
 
     private int item;
+    private Semaphore produced;
+    private Semaphore consumed;
 
-    // making sure producer thread should run first
-    private Semaphore produced = new Semaphore(1);
-    private Semaphore consumed = new Semaphore(0);
+    public SharedObject() {
+        // making sure producer thread should run first
+        produced = new Semaphore(1);
+        consumed = new Semaphore(0);
+    }
 
     public void put(int value) {
         try {
