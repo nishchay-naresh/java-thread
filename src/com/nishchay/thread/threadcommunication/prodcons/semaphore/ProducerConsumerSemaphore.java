@@ -4,9 +4,10 @@ public class ProducerConsumerSemaphore {
 
 	public static void main(String[] args) {
 
-		SharedObject q = new SharedObject();
+		SharedObject sharedObject = new SharedObject();
 
-		new Thread(new Producer(q), "Producer Thread -").start();
-		new Thread(new Consumer(q), "Consumer Thread -").start();
+		new Thread(new Producer(sharedObject), "Producer Thread -").start();
+		new Thread(new Consumer(sharedObject), "Consumer Thread -").start();
+
 	}
 }
