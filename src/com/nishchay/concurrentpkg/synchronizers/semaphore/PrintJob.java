@@ -19,15 +19,16 @@ public class PrintJob implements Runnable {
 
         try {
             //  semaphore.acquireUninterruptibly(); // doesn't throw InterruptedException
-            semaphore.acquire(); // decrease the permit count
-            // critical section
+
+            semaphore.acquire();
             // once printer is been allocated to a thread, it's been removed from the ArrayList
             Printer printer = availablePrinters.remove(0);
             Thread.sleep(2 * 1000);
             printer.usePrinter();
             availablePrinters.add(printer);
             // once printer is free again, it's been added again to ArrayList
-            semaphore.release(); // increase the permit count
+            semaphore.release();
+
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

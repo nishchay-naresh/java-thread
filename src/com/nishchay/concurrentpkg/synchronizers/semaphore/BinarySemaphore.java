@@ -6,24 +6,44 @@ public class BinarySemaphore {
 
     public static void main(String[] args){
 
+        binarySemaphoreEx();
+        System.out.println("-----------------------------");
+        binarySemaphoreEx1();
+    }
+
+    private static void binarySemaphoreEx() {
+
         Semaphore binarySemaphore = new Semaphore(1, true);
 
+        // critical section
         try {
-            binarySemaphore.acquire();
+            binarySemaphore.acquire(); // decrease the permit count
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        // assertEquals(0, binarySemaphore.availablePermits());
         if(0 == binarySemaphore.availablePermits()){
             System.out.println("zero permits available");
         }
 
-        binarySemaphore.release();
+        binarySemaphore.release(); // increase the permit count
 
-        // assertEquals(1, binarySemaphore.availablePermits());
         if(1 == binarySemaphore.availablePermits()){
             System.out.println("one permits available");
         }
 
+    }
+
+    private static void binarySemaphoreEx1() {
+
+        Semaphore semaphoreWithSinglePermit = new Semaphore(1);
+
+        semaphoreWithSinglePermit.acquireUninterruptibly();
+        System.out.println("available permits - " + semaphoreWithSinglePermit.availablePermits());
+
+        semaphoreWithSinglePermit.release();
+        System.out.println("available permits - " + semaphoreWithSinglePermit.availablePermits());
+
+        semaphoreWithSinglePermit.tryAcquire();
+        System.out.println("available permits - " + semaphoreWithSinglePermit.availablePermits());
     }
 }
