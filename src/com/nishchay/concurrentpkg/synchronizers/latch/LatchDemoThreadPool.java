@@ -16,7 +16,7 @@ public class LatchDemoThreadPool {
         final int NO_OF_GUEST = 4;
         CountDownLatch latch = new CountDownLatch(NO_OF_GUEST);
 
-        System.out.println(Thread.currentThread().getName() + " has started the main exception ----" );
+        System.out.println(Thread.currentThread().getName() + " has started the main execution ----" );
         Guest guest = new Guest(latch);
 
         ExecutorService executorService = Executors.newCachedThreadPool();
@@ -36,7 +36,7 @@ public class LatchDemoThreadPool {
             e.printStackTrace();
         }
         System.out.println(Thread.currentThread().getName() + " resume once all sub-task finished (which is - all guest have arrived)");
-        System.out.println(Thread.currentThread().getName() + " has ended the main exception ----" );
+        System.out.println(Thread.currentThread().getName() + " has ended the main execution ----" );
 
     }
 }
