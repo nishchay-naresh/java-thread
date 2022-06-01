@@ -9,7 +9,6 @@ One need 3 things :
 2. Worker - a Thread class object
 3. Assigning task to the Worker - Passing task to the worker & invoking t.start()
 
-- Code Snippets
 ``` 
         // java8 way to create a thread - Providing Runnable interface implementation using lambda expression
         Thread t1 = new Thread(() -> System.out.println("Creating a thread using lambda expression"));
