@@ -44,6 +44,7 @@ The purpose of daemon threads is serving user threads, there’s no need to keep
 3.	Thread.sleep()
 4.	Thread.yield()
 
+**Thread interrupts** - Interrupts are co-operative mechanism for indicating stop signal to a thread ( java.lang.InterruptedException )
 ### synchronization
 1.	Mutual-Exclusion - sharing single resource across multiple threads
 
