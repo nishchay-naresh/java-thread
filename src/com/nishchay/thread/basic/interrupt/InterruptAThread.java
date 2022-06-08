@@ -1,6 +1,6 @@
 package com.nishchay.thread.basic.interrupt;
 
-import java.util.concurrent.Callable;
+import java.util.concurrent.*;
 
 /*
 * ==================== how to stop a thread ======================
@@ -12,15 +12,19 @@ import java.util.concurrent.Callable;
 *
 * https://www.youtube.com/watch?v=-7ZB-jpaPPo&ab_channel=DefogTech
 * */
-public class InterruptSleepingThread {
+public class InterruptAThread {
 
     public static void main(String[] args) {
 
-        InterruptSleepingThread ref = new InterruptSleepingThread();
-        ref.interruptNonBlockingThread();
-//        ref.interruptSleepingThread();
-//        ref.interruptWaitingThread();
+        interruptNonBlockingThreadEx();
+//        interruptSleepingThread();
+//        interruptWaitingThread();
 
+    }
+
+    private static void interruptNonBlockingThreadEx(){
+//        interruptNonBlockingThreadRunnable();
+        interruptNonBlockingThreadCallable();
     }
 
     /*
@@ -32,11 +36,11 @@ public class InterruptSleepingThread {
     * Since InterruptedException is checked one, so we can't do this with Runnable, we have to move to Callable interface.
     *
     * */
-    private void interruptNonBlockingThread() {
+    private static void interruptNonBlockingThreadRunnable() {
 
         Thread t = new Thread(() -> {
 
-            for (int i = 1; i <= 1000; i++) {
+            for (int i = 1; i <= 500; i++) {
                 System.out.println("Counting - " + i);
                 // polling for interrupt
                 if (Thread.currentThread().isInterrupted()) {
@@ -60,7 +64,32 @@ public class InterruptSleepingThread {
         t.interrupt();
     }
 
-   static class Integer implements Callable<Integer>{
+    private static void interruptNonBlockingThreadCallable() {
+
+        // FutureTask is a concrete class that implements both Runnable and Future
+        FutureTask<Integer> futureTask = new FutureTask<>(new CountTask());
+
+        Thread t = new Thread(futureTask);
+        t.start();
+
+        try {
+            Thread.sleep(1);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        t.interrupt();
+
+        try {
+            futureTask.get();
+            System.out.println("thread completed");
+        } catch (InterruptedException | ExecutionException e) {
+            System.out.println("thread is been interrupted");
+            throw new RuntimeException("Thread interrupted..." + e);
+        }
+    }
+
+   static class CountTask implements Callable<Integer>{
 
        @Override
        public Integer call() throws Exception {
@@ -78,7 +107,7 @@ public class InterruptSleepingThread {
        }
    }
 
-    private void interruptSleepingThread() {
+    private static void interruptSleepingThread() {
 
         Thread t = new Thread(() -> {
             System.out.println("started");
@@ -97,7 +126,7 @@ public class InterruptSleepingThread {
 
     }
 
-    private void interruptWaitingThread() {
+    private static void interruptWaitingThread() {
 
         Object lock = new Object();
 
@@ -120,25 +149,17 @@ public class InterruptSleepingThread {
 
     }
 
-
-
-
 }
 
 /*
-O/P => interruptNonBlockingThread()
-        Counting - 1
-        Counting - 2
-        Counting - 3
-        Counting - 4
-        Counting - 5
-        Counting - 6
-        Counting - 7
-        Interrupted status- true
-        Counting - 8
-        Interrupted status- true
-        Counting - 9
-        Interrupted status- true
-        Counting - 10
-        Interrupted status- true
+O/P =>
+
+Counting - 1,2...50+..73
+Counting - 72
+thread is been interrupted
+Exception in thread "main" java.lang.RuntimeException: Thread interrupted...java.util.concurrent.ExecutionException: java.lang.InterruptedException
+	at com.nishchay.thread.basic.interrupt.InterruptAThread.interruptNonBlockingThreadCallable(InterruptAThread.java:88)
+	at com.nishchay.thread.basic.interrupt.InterruptAThread.interruptNonBlockingThreadEx(InterruptAThread.java:27)
+	at com.nishchay.thread.basic.interrupt.InterruptAThread.main(InterruptAThread.java:19)
+
 */
