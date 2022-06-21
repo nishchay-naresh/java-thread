@@ -23,7 +23,7 @@ public class Add100UsingObjectLocking {
 
     static class Sum100Thread extends Thread {
 
-        Object lock;
+        final Object lock;
 
         Sum100Thread(Object lock) {
             this.lock = lock;
