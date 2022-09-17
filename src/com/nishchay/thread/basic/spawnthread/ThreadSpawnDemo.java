@@ -4,13 +4,12 @@ public class ThreadSpawnDemo {
 
     public static void main(String[] args) {
 
-        ThreadSpawnDemo ref = new ThreadSpawnDemo();
+        spawnAndRunNewThread();
+        startingThreadTwice();
 
-        ref.spawnAndRunNewThread();
-//        ref.startingThreadTwice();
     }
 
-    private void spawnAndRunNewThread(){
+    private static void spawnAndRunNewThread(){
 
         /*
         * To spawn a new Thread, get it executed as independent path of execution :
@@ -23,7 +22,7 @@ public class ThreadSpawnDemo {
 
         Task task = new Task();
         Thread userThread =  new Thread(task);
-        userThread.start();
+        userThread.start(); // a new threads gets created here, not at the above line
 
         for (int i = 1; i <= 5; i++) {
             System.out.println("Main Thread is counting - " + i);
@@ -31,13 +30,24 @@ public class ThreadSpawnDemo {
 
     }
 
-    private void startingThreadTwice(){
+    private static void startingThreadTwice(){
 
         Thread t =  new Thread(new Task());
         t.start();
 
         // java.lang.IllegalThreadStateException
-        // t.start();
+         t.start();
+
+    }
+
+    static class Task implements Runnable {
+
+        @Override
+        public void run() {
+            for (int i = 1; i <= 5; i++) {
+                System.out.println("User Thread is counting - " + i);
+            }
+        }
 
     }
 
