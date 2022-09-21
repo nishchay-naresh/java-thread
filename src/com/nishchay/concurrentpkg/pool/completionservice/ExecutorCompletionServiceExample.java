@@ -8,13 +8,21 @@ public class ExecutorCompletionServiceExample {
 
     public static void main(String[] args) {
 
-        ExecutorCompletionServiceExample ref = new ExecutorCompletionServiceExample();
-        ref.executorServiceEvaluation();
-        ref.executorCompletionServiceEvaluation();
+        executorServiceEvaluation();
+        executorCompletionServiceEvaluation();
 
     }
 
-    public void executorServiceEvaluation() {
+    /*
+     *
+     *	Problem -
+     *	With the case ExecutorService, since we are extracting out the result (future.get()) in order of their submission.
+     *	So if the last submitted task is finished with the execution and the first one is still in execution.
+     *	So we have to wait for first task to finish to extract the result of finished last job.
+     *
+     * Here we are extracting the result in the order of their submission
+     * */
+    private static void executorServiceEvaluation() {
 
         List<DownloadTask> downloadTasks = getTaskList();
 
@@ -29,7 +37,7 @@ public class ExecutorCompletionServiceExample {
 
         executorService.shutdown();
 
-        for (Future future : futures) {
+        for (Future<String> future : futures) {
             try {
                 System.out.println(future.get());
             } catch (InterruptedException | ExecutionException e) {
@@ -39,7 +47,14 @@ public class ExecutorCompletionServiceExample {
 
     }
 
-    public void executorCompletionServiceEvaluation() {
+    /*
+     *
+     *	CompletionsService(I)  <-  ExecutorCompletionsService class is there to rescue us
+     *	It takes the same ExecutorService object for the execution of submitted task,
+     *	But uses an addition Queue<Future>, which arranges/holds the task upon completion of their execution.
+     *
+     * */
+    private static void executorCompletionServiceEvaluation() {
 
         List<DownloadTask> downloadTasks = getTaskList();
 
@@ -61,11 +76,10 @@ public class ExecutorCompletionServiceExample {
             }
         }
 
-
     }
 
 
-    public List<DownloadTask> getTaskList() {
+    private static List<DownloadTask> getTaskList() {
         List<DownloadTask> downloadTasks = new ArrayList<>();
         downloadTasks.add(new DownloadTask("Task 1", 8));
         downloadTasks.add(new DownloadTask("Task 2", 5));
