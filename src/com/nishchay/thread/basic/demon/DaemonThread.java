@@ -1,10 +1,18 @@
 package com.nishchay.thread.basic.demon;
 
+
+
 /*
-    Demon thread demo for JVM exit
-    if A background running task is set as demon, JVM will exit as soon as it finishes its own task
-    Else JVM will also be running, until demon thread is not getting stopped
- */
+ *
+ *	Daemon threads are low-priority threads that conduct supporting tasks, whereas
+ *	Non-Daemon threads are high-priority threads that handle particular tasks
+ *
+ *	the JVM always waits for non-daemon threads to complete their tasks, but not for demon threads
+ *
+ * if A background running task is set as demon, JVM will exit as soon as it finishes its own task
+ * Else JVM will also be running, until demon thread is not getting stopped
+ *
+ * */
 
 public class DaemonThread {
 
