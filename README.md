@@ -36,6 +36,10 @@ A thread can be in one of the following states:
 
 
 ### demon thread
+
+* Daemon threads are low-priority threads that conduct supporting tasks, whereas
+* Non-Daemon threads are high-priority threads that handle particular tasks
+
 The purpose of daemon threads is serving user threads, there’s no need to keep daemon threads running if all user threads terminate. That’s why the JVM will exit if there are only daemon threads running.
 
 ### method to prevent thread execution
