@@ -1,12 +1,67 @@
 package com.nishchay.thread.jmm;
 
+import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicLong;
 
 public class VolatileArrayEx {
 
-    public static void main(String[] args) {
-//        test_issue();
-//        test_issue_fix();
+    public static void main(String[] args) throws InterruptedException, ExecutionException {
+
+        test_issue();
+        test_issue_fix();
+
+    }
+
+    public static void test_issue_fix() throws InterruptedException, ExecutionException {
+        ExecutorService executorService = Executors.newCachedThreadPool();
+        try {
+            AlignedCounters foo = new AlignedCountersB();
+
+            long end = System.nanoTime() + TimeUnit.SECONDS.toNanos(10);
+
+            Future<?> incrementer = executorService.submit(() -> {
+                while (System.nanoTime() < end) {
+                    foo.increment();
+                }
+            });
+
+            Thread.sleep(3000);
+
+            foo.clear();
+
+            incrementer.get();
+
+            System.out.println(foo.get());
+
+        } finally {
+            executorService.shutdown();
+        }
+    }
+
+    public static void test_issue() throws InterruptedException, ExecutionException {
+        ExecutorService executorService = Executors.newCachedThreadPool();
+        try {
+            AlignedCounters foo = new AlignedCountersA();
+
+            long end = System.nanoTime() + TimeUnit.SECONDS.toNanos(10);
+
+            Future<?> incrementer = executorService.submit(() -> {
+                while (System.nanoTime() < end) {
+                    foo.increment();
+                }
+            });
+
+            Thread.sleep(3000);
+
+            foo.clear();
+
+            incrementer.get();
+
+            System.out.println(foo.get());
+
+        } finally {
+            executorService.shutdown();
+        }
     }
 
     interface AlignedCounters {
@@ -19,7 +74,7 @@ public class VolatileArrayEx {
     }
 
     // Simple implementation using individual atomic member
-    static class AlignedCountersA implements AlignmentTest.AlignedCounters {
+    static class AlignedCountersA implements AlignedCounters {
         AtomicLong a = new AtomicLong(0);
         AtomicLong b = new AtomicLong(0);
 
@@ -49,7 +104,7 @@ public class VolatileArrayEx {
     }
 
     // implementation using volatile array
-    static class AlignedCountersB implements AlignmentTest.AlignedCounters {
+    static class AlignedCountersB implements AlignedCounters {
 
         volatile AtomicLong[] counters;
 
