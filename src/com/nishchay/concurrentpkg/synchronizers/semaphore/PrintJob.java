@@ -5,8 +5,8 @@ import java.util.concurrent.Semaphore;
 
 public class PrintJob implements Runnable {
 
-    private Semaphore semaphore;
-    private List<Printer> availablePrinters;
+    private final Semaphore semaphore;
+    private final List<Printer> availablePrinters;
 
     public PrintJob(Semaphore semaphore, List<Printer> availablePrinters) {
         this.semaphore = semaphore;
@@ -21,7 +21,7 @@ public class PrintJob implements Runnable {
             //  semaphore.acquireUninterruptibly(); // doesn't throw InterruptedException
 
             semaphore.acquire();
-            // once printer is been allocated to a thread, it's been removed from the ArrayList
+            // once printer is allocated to a thread, it's been removed from the ArrayList
             Printer printer = availablePrinters.remove(0);
             Thread.sleep(2 * 1000);
             printer.usePrinter();
