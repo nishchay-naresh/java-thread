@@ -1,22 +1,48 @@
 package com.nishchay.concurrentpkg.collection;
 
 
+
 import java.util.Iterator;
+import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
+import static com.nishchay.Utils.sleep0;
+
+
+/*
+ * java.util.concurrent.ConcurrentLinkedQueue
+ *
+ * -	ConcurrentLinkedQueue is a thread-safe, unbounded queue
+ * -	Stores elements in linked node
+ * -	FIFO structure [ enqueue() at tail, dequeue() at head ]
+ * -	Non Blocking ( internally using ArrayBQ, LinkedBQ)
+ * 	        put() & take() are non-blocking
+ * -	UseCase - when an unbounded Queue is shared among many threads
+ * -	Not allowing null (like many other concurrent collection)
+ * -	Iteration - not throwing ConcurrentModificationException
+ *
+ * ref - https://stackoverflow.com/questions/616484/how-to-use-concurrentlinkedqueue
+ *
+ * */
 public class ConcurrentLinkedQueueDemo {
 
     public static void main(String[] args) {
 
         basicMethods();
+        System.out.println("\n-------------------------------");
         removeEx();
+        System.out.println("-------------------------------");
+        producerConsumerEx();
 
     }
 
+
     private static void basicMethods() {
 
-        Queue<String> queue = new ConcurrentLinkedQueue<String>();
+        Queue<String> queue = new ConcurrentLinkedQueue<>();
 
         queue.add("Chennai");
         queue.add("Patna");
@@ -46,7 +72,7 @@ public class ConcurrentLinkedQueueDemo {
 
     private static void removeEx() {
 
-        Queue<String> queue = new ConcurrentLinkedQueue<String>();
+        Queue<String> queue = new ConcurrentLinkedQueue<>();
 
         queue.add("Chennai");
         queue.add("Patna");
@@ -60,4 +86,54 @@ public class ConcurrentLinkedQueueDemo {
         System.out.println("The queue is " + queue);
     }
 
+    private static void producerConsumerEx() {
+
+        Queue<Integer> clQueue = new ConcurrentLinkedQueue<>();
+//        Queue<Integer> clQueue = new PriorityQueue<>();
+        ExecutorService executorService = Executors.newFixedThreadPool(4);
+
+        executorService.execute(() -> produce(clQueue));
+        executorService.execute(() -> consume(clQueue));
+        executorService.execute(() -> consume(clQueue));
+        executorService.execute(() -> consume(clQueue));
+        executorService.execute(() -> consume(clQueue));
+        executorService.execute(() -> consume(clQueue));
+
+        executorService.shutdown();
+
+    }
+
+    public static void produce(Queue<Integer> queue) {
+        for (int i = 1; i <= 5; i++) {
+            queue.add(i);
+            System.out.println(Thread.currentThread().getName() + " produces:" + i);
+        }
+    }
+
+    public static void consume(Queue<Integer> queue) {
+        sleep0(50);
+        System.out.println(Thread.currentThread().getName() + " consume:" + queue.poll());
+    }
+
 }
+/*
+ * O/P =
+ *
+ *
+ * clQueue = new ConcurrentLinkedQueue<>();
+ * pool-1-thread-1 consume:2
+ * pool-1-thread-2 consume:1
+ * pool-1-thread-3 consume:4
+ * pool-1-thread-4 consume:3
+ * pool-1-thread-1 consume:5
+ * Each value is consumed only once with concurrent collection
+ *
+ * clQueue = new PriorityQueue<>();
+ * pool-1-thread-4 consume:2
+ * pool-1-thread-3 consume:1
+ * pool-1-thread-2 consume:1
+ * pool-1-thread-1 consume:1
+ * pool-1-thread-4 consume:3
+ * few value is consumed many times here with non-thread safe collection
+ *
+ * */
