@@ -20,36 +20,38 @@ public class AtomicEx {
 
         // AtomicInteger atomicInteger = new AtomicInteger(); - creates an AtomicInteger with the initial value 0
         // the default initial value of a AtomicInteger object will always be 0
-        System.out.println("default initial value of a AtomicInteger object = " + new AtomicInteger().get());
-
+        System.out.println("default initial value : " + new AtomicInteger().get());
 
         AtomicInteger atomicInteger = new AtomicInteger(123);
-
-        int theValue = atomicInteger.get();
-        System.out.println("theValue = " + theValue);
+        System.out.println("atomicInteger : " + atomicInteger.get());
 
         atomicInteger.set(234);
+        System.out.println("atomicInteger : " + atomicInteger.get());
 
         // Compare and Set the AtomicInteger Value
-        atomicInteger = new AtomicInteger(123);
-        int expectedValue = 123;
-        int newValue = 234;
-        atomicInteger.compareAndSet(expectedValue, newValue);
+        atomicInteger.compareAndSet(234, 574);
+        System.out.println("atomicInteger : " + atomicInteger.get());
 
         // Adding to the AtomicInteger Value
-        // addAndGet() - adds a number to the AtomicInteger and returns its value after the addition
         // getAndAdd() - adds a number to the AtomicInteger but returns the value the AtomicInteger had before the value was added
+        // addAndGet() - adds a number to the AtomicInteger and returns its value after the addition
         atomicInteger = new AtomicInteger();
-        System.out.println(atomicInteger.getAndAdd(10));
-        System.out.println(atomicInteger.addAndGet(10));
+        System.out.println("getAndAdd : " + atomicInteger.getAndAdd(10));
+        System.out.println("addAndGet : " + atomicInteger.addAndGet(10));
 
         // getAndIncrement()
         // incrementAndGet()
         //The methods getAndIncrement() and incrementAndGet() works like getAndAdd() and addAndGet() but just add 1 to the value of the AtomicInteger.
+        atomicInteger = new AtomicInteger();
+        System.out.println("getAndIncrement : " + atomicInteger.getAndIncrement());
+        System.out.println("incrementAndGet : " + atomicInteger.incrementAndGet());
 
         //Subtracting From the AtomicInteger Value
-        // decrementAndGet() - subtracts 1 from the AtomicInteger value and returns its value after the subtraction
         // getAndDecrement() - subtracts 1 from the AtomicInteger value but returns the value the AtomicInteger had before the subtraction.
+        // decrementAndGet() - subtracts 1 from the AtomicInteger current value and returns its updated value after subtraction
+         atomicInteger = new AtomicInteger();
+        System.out.println("getAndDecrement : " + atomicInteger.getAndDecrement());
+        System.out.println("decrementAndGet : " + atomicInteger.decrementAndGet());
 
     }
 
