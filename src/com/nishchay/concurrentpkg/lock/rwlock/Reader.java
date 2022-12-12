@@ -6,7 +6,6 @@ import static com.nishchay.Utils.sleep0;
 
 /**
  * Reader.java
- * This thread randomly adds an element to a shared data structure
  * This thread randomly read an element from a shared data structure
  */
 public class Reader extends Thread {
