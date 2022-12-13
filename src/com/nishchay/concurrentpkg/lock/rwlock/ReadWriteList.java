@@ -15,8 +15,8 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
  */
 public class ReadWriteList<E> {
 
-    private List<E> list;
-    private ReadWriteLock rwLock;
+    private final List<E> list;
+    private final ReadWriteLock rwLock;
 
     public ReadWriteList() {
         this.list = new ArrayList<>();
