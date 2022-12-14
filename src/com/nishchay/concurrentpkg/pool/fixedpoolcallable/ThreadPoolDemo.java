@@ -2,6 +2,8 @@ package com.nishchay.concurrentpkg.pool.fixedpoolcallable;
 
 import java.util.concurrent.*;
 
+import static com.nishchay.Utils.sleep0;
+
 public class ThreadPoolDemo {
 
     public static void main(String[] args) throws InterruptedException, ExecutionException {
@@ -10,8 +12,10 @@ public class ThreadPoolDemo {
         System.out.println("Before submit  : " + ((ThreadPoolExecutor) threadPool).getActiveCount());
 
         for (int i = 0; i < 6; i++) {
-            Task task = new Task();
-            Future<String> future = threadPool.submit(task);
+            Future<String> future = threadPool.submit(() -> {
+                sleep0(4 * 1000);
+                return "Result String returned by - " + Thread.currentThread().getName();
+            });
             System.out.println("During Execution  : " + ((ThreadPoolExecutor) threadPool).getActiveCount());
             System.out.println(future.get());
         }
