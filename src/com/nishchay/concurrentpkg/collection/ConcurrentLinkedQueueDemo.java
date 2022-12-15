@@ -5,9 +5,7 @@ package com.nishchay.concurrentpkg.collection;
 import java.util.Iterator;
 import java.util.PriorityQueue;
 import java.util.Queue;
-import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.concurrent.*;
 
 import static com.nishchay.Utils.sleep0;
 
@@ -24,7 +22,9 @@ import static com.nishchay.Utils.sleep0;
  * -	Not allowing null (like many other concurrent collection)
  * -	Iteration - not throwing ConcurrentModificationException
  *
- * ref - https://stackoverflow.com/questions/616484/how-to-use-concurrentlinkedqueue
+ *
+ * https://stackoverflow.com/questions/616484/how-to-use-concurrentlinkedqueue
+ * https://www.baeldung.com/java-queue-linkedblocking-concurrentlinked
  *
  * */
 public class ConcurrentLinkedQueueDemo {
@@ -36,7 +36,8 @@ public class ConcurrentLinkedQueueDemo {
         removeEx();
         System.out.println("-------------------------------");
         producerConsumerEx();
-
+        System.out.println("-------------------------------");
+        pcNonBlockingPut();
     }
 
 
@@ -113,6 +114,38 @@ public class ConcurrentLinkedQueueDemo {
     public static void consume(Queue<Integer> queue) {
         sleep0(50);
         System.out.println(Thread.currentThread().getName() + " consume:" + queue.poll());
+    }
+
+
+
+    private static void pcNonBlockingPut(){
+
+        int inputValue = 1;
+        ExecutorService executorService = Executors.newFixedThreadPool(2);
+        ConcurrentLinkedQueue<Integer> queue = new ConcurrentLinkedQueue<>();
+
+        Runnable offerTask = () -> queue.offer(inputValue);
+
+        // poll task additionally checks the queue for an element first as ConcurrentLinkedQueue is non-blocking and can return a null value.
+        Callable<Integer> pollTask = () -> {
+            while (queue.peek() != null) {
+                return queue.poll();
+            }
+            return null;
+        };
+
+        executorService.submit(offerTask);
+        Future<Integer> returnedFuture = executorService.submit(pollTask);
+        int returnedValue;
+        try {
+            returnedValue = returnedFuture.get();
+        } catch (InterruptedException | ExecutionException e) {
+            throw new RuntimeException(e);
+        }
+        if(inputValue == returnedValue){
+            System.out.println("inputValue == returnedValue");
+        }
+        executorService.shutdown();
     }
 
 }
