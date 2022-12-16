@@ -1,8 +1,10 @@
 package com.nishchay.concurrentpkg.pool.fixedpoolrunnable;
 
+import static com.nishchay.Utils.sleep0;
+
 public class PrintJob implements Runnable{
 
-    private String name;
+    private final String name;
 
     public PrintJob(String name) {
         this.name = name;
@@ -10,13 +12,8 @@ public class PrintJob implements Runnable{
 
     @Override
     public void run() {
-
         System.out.println(name + " Job started by thread : " + Thread.currentThread().getName());
-        try {
-            Thread.sleep(2 * 1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        sleep0(2 * 1000);
         System.out.println(name + " Job completed by thread : " + Thread.currentThread().getName());
     }
 }
