@@ -1,5 +1,7 @@
 package com.nishchay.concurrentpkg.pool.ownthreadpool;
 
+import static com.nishchay.Utils.sleep0;
+
 public class ThreadPoolDemo {
 
 	public static void main(String[] args) throws Exception {
@@ -34,11 +36,8 @@ public class ThreadPoolDemo {
 				System.out.println("Task 2 Completed....");
 			}
 		});
-		
-		try {
-			Thread.sleep(5000);
-		} catch (InterruptedException e) {
-		}
+
+		sleep0(5000);
 		pool.shutDown();
 /*
 		pool.submitTask(new Runnable() {
