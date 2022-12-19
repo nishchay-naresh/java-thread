@@ -4,13 +4,11 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import static com.nishchay.Utils.sleep0;
-
 public class SingleThreadPool {
 
     public static void main(String[] args) {
 
-//        basicEx();
+        basicEx();
         counterEx();
 
     }
@@ -40,7 +38,12 @@ public class SingleThreadPool {
         executor.submit(() -> {
             counter.compareAndSet(1, 2);
         });
-        System.out.println("counter - " + counter.get());
+
+        executor.submit(() -> {
+            counter.compareAndSet(2, 3);
+        });
+
+        System.out.println("counter - " + counter.get()); // 3
 
         executor.shutdown();
     }
