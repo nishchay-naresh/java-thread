@@ -1,5 +1,7 @@
 package com.nishchay.thread.basic.demon;
 
+import com.nishchay.Utils;
+
 public class DirectoryWatcherTask implements Runnable {
 
     @Override
@@ -8,12 +10,7 @@ public class DirectoryWatcherTask implements Runnable {
         while (true) {
             System.out.println("checking directory for file update ...");
 
-/*           try {
-               Thread.sleep(1 * 1000);
-           } catch (InterruptedException e) {
-               e.printStackTrace();
-           }
-*/
+//            Utils.wait0(1 * 1000);
 
         }
     }
