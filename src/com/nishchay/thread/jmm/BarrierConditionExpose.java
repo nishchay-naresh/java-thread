@@ -1,5 +1,7 @@
 package com.nishchay.thread.jmm;
 
+import static com.nishchay.Utils.sleep0;
+
 /*
 *
 * Two ways we can make this code running :
@@ -35,15 +37,6 @@ public class BarrierConditionExpose {
 
         System.out.println("Setting done to true");
         done = true;
-    }
-
-    public static void sleep0(int millis){
-        try {
-            Thread.sleep(millis);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-
     }
 
 }
