@@ -17,13 +17,13 @@ public class InterruptAThread {
     public static void main(String[] args) {
 
         interruptNonBlockingThreadEx();
-//        interruptSleepingThread();
-//        interruptWaitingThread();
+        interruptSleepingThread();
+        interruptWaitingThread();
 
     }
 
     private static void interruptNonBlockingThreadEx(){
-//        interruptNonBlockingThreadRunnable();
+        interruptNonBlockingThreadRunnable();
         interruptNonBlockingThreadCallable();
     }
 
@@ -44,9 +44,9 @@ public class InterruptAThread {
                 System.out.println("Counting - " + i);
                 // polling for interrupt
                 if (Thread.currentThread().isInterrupted()) {
-                    System.out.println("Interrupted status- " + Thread.currentThread().isInterrupted());
                     // resetting the status
                     Thread.interrupted();
+                    System.out.println("Interrupted status- " + Thread.currentThread().isInterrupted());
                     return;
                 }
             }
@@ -61,9 +61,17 @@ public class InterruptAThread {
             e.printStackTrace();
         }
 
-        t.interrupt();
-    }
+        new Thread(() -> {
+            t.interrupt();
+        }).start();
 
+    }
+    /*
+     * o/p =>
+     *	Counting - 1,2,3,4...35
+     *	Interrupted status- false
+     *
+     * */
     private static void interruptNonBlockingThreadCallable() {
 
         // FutureTask is a concrete class that implements both Runnable and Future
@@ -88,24 +96,6 @@ public class InterruptAThread {
             throw new RuntimeException("Thread interrupted..." + e);
         }
     }
-
-   static class CountTask implements Callable<Integer>{
-
-       @Override
-       public Integer call() throws Exception {
-
-           for (int i = 1; i <= 1000; i++) {
-               System.out.println("Counting - " + i);
-
-               // polling for interrupt
-               if (Thread.currentThread().isInterrupted()) {
-                   throw  new InterruptedException();
-
-               }
-           }
-           return null;
-       }
-   }
 
     private static void interruptSleepingThread() {
 
