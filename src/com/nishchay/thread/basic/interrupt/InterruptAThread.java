@@ -1,5 +1,7 @@
 package com.nishchay.thread.basic.interrupt;
 
+import com.nishchay.Utils;
+
 import java.util.concurrent.*;
 
 /*
@@ -11,21 +13,20 @@ import java.util.concurrent.*;
 *
 *
 * https://www.youtube.com/watch?v=-7ZB-jpaPPo&ab_channel=DefogTech
+* https://www.baeldung.com/java-stop-execution-after-certain-time
 * */
 public class InterruptAThread {
 
     public static void main(String[] args) {
 
-        interruptNonBlockingThreadEx();
+        interruptNonBlockingThreadRunnable();
+        interruptNonBlockingThreadCallable();
+
         interruptSleepingThread();
         interruptWaitingThread();
 
     }
 
-    private static void interruptNonBlockingThreadEx(){
-        interruptNonBlockingThreadRunnable();
-        interruptNonBlockingThreadCallable();
-    }
 
     /*
     * Here in this approach , problem is that
@@ -55,36 +56,37 @@ public class InterruptAThread {
 
         t.start();
 
-        try {
-            Thread.sleep(1);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        Utils.sleep0(1);
 
-        new Thread(() -> {
-            t.interrupt();
-        }).start();
+        t.interrupt();
 
     }
     /*
      * o/p =>
-     *	Counting - 1,2,3,4...35
+     *	Counting - 1,2,3,4...65
      *	Interrupted status- false
      *
      * */
     private static void interruptNonBlockingThreadCallable() {
 
         // FutureTask is a concrete class that implements both Runnable and Future
-        FutureTask<Integer> futureTask = new FutureTask<>(new CountTask());
+        FutureTask<Void> futureTask = new FutureTask<>(() -> {
+            for (int i = 1; i <= 500; i++) {
+                System.out.println("Counting - " + i);
+
+                // polling for interrupt
+                if (Thread.currentThread().isInterrupted()) {
+                    throw new InterruptedException();
+                    //can throw any type of Exception
+                }
+            }
+            return null;
+        });
 
         Thread t = new Thread(futureTask);
         t.start();
 
-        try {
-            Thread.sleep(1);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        Utils.sleep0(1);
 
         t.interrupt();
 
@@ -93,7 +95,7 @@ public class InterruptAThread {
             System.out.println("thread completed");
         } catch (InterruptedException | ExecutionException e) {
             System.out.println("thread is been interrupted");
-            throw new RuntimeException("Thread interrupted..." + e);
+            throw new RuntimeException("Exception trace - " + e);
         }
     }
 
@@ -105,8 +107,8 @@ public class InterruptAThread {
                 Thread.sleep(3 * 1000);
                 System.out.println("sleeping");
             } catch (InterruptedException e) { // java.lang.InterruptedException: sleep interrupted
-                System.out.println(e.toString());
-                throw new RuntimeException("Thread interrupted..." + e);
+                System.out.println("thread is been interrupted");
+                throw new RuntimeException("Exception trace - " + e);
             }
             System.out.println("finished");
         });
@@ -128,8 +130,8 @@ public class InterruptAThread {
                 }
                 System.out.println("waiting");
             } catch (InterruptedException e) { // java.lang.InterruptedException
-                System.out.println(e.toString());
-                throw new RuntimeException("Thread interrupted..." + e);
+                System.out.println("thread is been interrupted");
+                throw new RuntimeException("Exception trace - " + e);
             }
             System.out.println("finished");
         });
