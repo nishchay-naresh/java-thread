@@ -1,9 +1,11 @@
 package com.nishchay.thread.synchronize.deadlock;
 
+import static com.nishchay.Utils.sleep0;
+
 public class Writer1 extends Thread {
 
-    private Object book;
-    private Object pen;
+    private final Object book;
+    private final Object pen;
 
     public Writer1(Object book, Object pen) {
         this.book = book;
@@ -13,7 +15,7 @@ public class Writer1 extends Thread {
     @Override
     public void run() {
         synchronized(book) {
-            try { Thread.sleep(10); } catch(Exception e) {}
+            sleep0(10);
             synchronized(pen) {
                 System.out.println("Writer1 writing");
             }
