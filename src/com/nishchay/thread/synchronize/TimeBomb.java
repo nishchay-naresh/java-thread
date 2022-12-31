@@ -1,31 +1,15 @@
 package com.nishchay.thread.synchronize;
 
+import static com.nishchay.Utils.sleep0;
+
 public class TimeBomb extends Thread {
 
-	public static void main(String[] s) throws InterruptedException {
+	private static final Object lock = new Object();
 
-		System.out.println("Starting 10 second count down... ");
-
-		Object lock = new Object();
-		TimeBomb timer = new TimeBomb(lock);
-		timer.start();
-
-		synchronized (lock) {
-			while (!timer.childDone) {
-				lock.wait();
-			}
-		}
-		System.out.println("Boom!!!");
-
-	}
-
-	private String[] timeStr = { "Zero", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine" };
-	private final Object lock;
 	private boolean childDone;
 
-	private TimeBomb(Object lock) {
+	private TimeBomb() {
 		super();
-		this.lock = lock;
 		this.childDone = false;
 	}
 
@@ -38,14 +22,28 @@ public class TimeBomb extends Thread {
 	}
 
 	private void countDown() {
+		String[] timeStr = { "Zero", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine" };
+
 		for (int i = 9; i >= 0; i--) {
-			try {
-				System.out.println(timeStr[i]);
-				Thread.sleep(1000);
-			} catch (InterruptedException ie) {
-				ie.printStackTrace();
+			System.out.println(timeStr[i]);
+			sleep0(1000);
+		}
+	}
+
+	public static void main(String[] s) throws InterruptedException {
+
+		System.out.println("Starting 10 second count down... ");
+
+		TimeBomb timer = new TimeBomb();
+		timer.start();
+
+		synchronized (lock) {
+			while (!timer.childDone) {
+				lock.wait();
 			}
 		}
+		System.out.println("Boom!!!");
+
 	}
 
 }
