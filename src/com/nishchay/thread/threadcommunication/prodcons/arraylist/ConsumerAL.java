@@ -1,7 +1,7 @@
 package com.nishchay.thread.threadcommunication.prodcons.arraylist;
 
 public class ConsumerAL implements Runnable {
-    private MessageBuffer queue;
+    private final MessageBuffer queue;
 
     public ConsumerAL(MessageBuffer queue) {
         this.queue = queue;

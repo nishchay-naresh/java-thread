@@ -1,7 +1,7 @@
 package com.nishchay.thread.threadcommunication.prodcons.arraylist;
 
 class ProducerAL extends Thread {
-    private MessageBuffer queue;
+    private final MessageBuffer queue;
 
     public ProducerAL(MessageBuffer queue) {
         this.queue = queue;

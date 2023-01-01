@@ -3,10 +3,12 @@ package com.nishchay.thread.threadcommunication.prodcons.arraylist;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.nishchay.Utils.wait0;
+
 public class MessageBuffer {
 
-    private List<String> messageList;
-    private int limit;
+    private final List<String> messageList;
+    private final int limit;
 
     public MessageBuffer(int limit) {
         this.limit = limit;
@@ -24,11 +26,7 @@ public class MessageBuffer {
     public synchronized void enqueue(String msg) {
 
         while (isFull()) {
-            try {
-                this.wait();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            wait0(this);
         }
         // putting the element at the end
         messageList.add(msg);
@@ -38,11 +36,7 @@ public class MessageBuffer {
     public synchronized String dequeue() {
 
         while (isEmpty()) {
-            try {
-                this.wait();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            wait0(this);
         }
 
         // picking up the element from start
