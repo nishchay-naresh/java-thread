@@ -5,7 +5,7 @@ package com.nishchay.thread.threadcommunication.prodcons.bq;
  * then spawning four thread(2 prod and 2 consumer) - prodThread1, prodThread2, consThread1, consThread2 using lambda exp
  *
  * */
-public class MultProdConsDriver {
+public class MultiProdConsDriver {
 
     static final int LOOP_COUNT = 5;
 

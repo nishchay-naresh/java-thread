@@ -3,6 +3,8 @@ package com.nishchay.thread.threadcommunication.prodcons.bq;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.nishchay.Utils.wait0;
+
 /*
  * Designing a BlockingQueue using Synchronisation & wait-notify
  * Designed it for the generic data type
@@ -11,8 +13,8 @@ import java.util.List;
  * */
 public class MyBlockingQueue<T> {
 
-    private List<T> dataList;
-    private int limit;
+    private final List<T> dataList;
+    private final int limit;
 
     public MyBlockingQueue(int size) {
         this.limit = size;
@@ -29,7 +31,7 @@ public class MyBlockingQueue<T> {
 
     public synchronized void put(T element) {
         while (isFull()) {
-            waitThread();
+            wait0(this);
         }
         // Append specified element to the end of list.
         dataList.add(element);
@@ -38,18 +40,11 @@ public class MyBlockingQueue<T> {
 
     public synchronized T take() {
         while (isEmpty()) {
-            waitThread();
+            wait0(this);
         }
         // picking up the element from start
         this.notifyAll();
         return dataList.remove(0);
     }
 
-    public void waitThread(){
-        try {
-            this.wait();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
 }
