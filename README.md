@@ -112,7 +112,7 @@ Exploring java concurrent Package
 
 ### Synchronizers
 
-1.	Semaphore 
+1.	Semaphore - a synchronizer to maintains set of permits
 2.	CountDownLatch
 3.	CyclicBarrier
 4.	SynchronousQueue
