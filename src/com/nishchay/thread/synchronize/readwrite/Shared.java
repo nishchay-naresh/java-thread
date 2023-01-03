@@ -1,5 +1,7 @@
 package com.nishchay.thread.synchronize.readwrite;
 
+import static com.nishchay.Utils.sleep0;
+
 public class Shared {
 
     private int x;
@@ -31,7 +33,7 @@ public class Shared {
         // with sleep this thread will go to blocked state
         // for the given time interval, hence other thread
         // will get a chance.
-        try { Thread.sleep(1); } catch(Exception e) {}
+        sleep0(1);
 
         // set x to new value.
         setX(y);
