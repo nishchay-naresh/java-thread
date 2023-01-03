@@ -2,6 +2,8 @@ package com.nishchay.thread.threadcommunication.sum100;
 
 import java.util.stream.IntStream;
 
+import static com.nishchay.Utils.sleep0;
+
 public class Sum100Problem {
 
     public static void main(String[] args) throws InterruptedException {
@@ -37,13 +39,13 @@ public class Sum100Problem {
      * So checking for user thread completion here in main by using Thread.State enum, till then waiting
      *
      * */
-    private static void sumUsingThreadState() throws InterruptedException {
+    private static void sumUsingThreadState(){
         System.out.println("----Main started----");
         Thread thread = new Thread(Sum100Problem::sum100);
         thread.start();
 
         while(!thread.getState().equals(Thread.State.TERMINATED)){
-            Thread.sleep(1 * 1000);
+            sleep0(1000);
         }
         System.out.println("----Main Ended----");
     }
@@ -51,7 +53,7 @@ public class Sum100Problem {
     /*
      * Approach 3 : Using synchronization, Object locking concept using wait() & notify()
      *
-     * Main thread is waiting for the signal from user thread
+     * Main thread is waiting for the signal from user thread.
      * User thread will send a single upon its completion using isFinished flag
      * till then main will wait, main will resume its execution upon receiving this signal
      * */
