@@ -5,7 +5,7 @@ import static com.nishchay.Utils.sleep0;
 /*
 *
 * Two ways we can make this code running :
-*   1. Make this done as volatile
+*   1. Make this done variable as volatile
 *   2. Or add a sleep(0), under the while loop
 *
 * TODO - Need a discussion around this.
