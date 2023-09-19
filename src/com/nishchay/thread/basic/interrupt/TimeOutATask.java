@@ -1,10 +1,10 @@
 package com.nishchay.thread.basic.interrupt;
 
+import com.nishchay.Utils;
+
 import java.util.concurrent.*;
 
-
 public class TimeOutATask {
-
     public static void main(String[] args) throws ExecutionException, InterruptedException, TimeoutException {
 
         timeOut();
@@ -15,10 +15,11 @@ public class TimeOutATask {
         ExecutorService executor = Executors.newSingleThreadExecutor();
         Future<String> resultFuture = executor.submit(() -> {
             System.out.println(Thread.currentThread().getName() + " - executing a task");
-            sleep0(4000);
+            Utils.sleep0(4000);
             return "done";
         });
-        String result = null;
+
+        String result;
         try {
             result = resultFuture.get(5, TimeUnit.SECONDS);
             //result = resultFuture.get(2, TimeUnit.SECONDS); // - java.util.concurrent.TimeoutException
@@ -28,15 +29,5 @@ public class TimeOutATask {
             executor.shutdown();
         }
         System.out.println("result = " + result);
-
     }
-
-    private static void sleep0(int millis){
-        try {
-            Thread.sleep(millis);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-    
 }
