@@ -1,12 +1,10 @@
 package com.nishchay.thread.uncaughtexception;
 
 public class ExceptionInThread {
-
-
     public static void main(String[] args) {
 
-        // Exception in thread "Thread-0" java.lang.ArithmeticException: / by zero
-        Thread t0 = new Thread(() ->  System.out.println(10/0));
+        // Exception in thread "Thread-0" java.lang.ArithmeticException
+        Thread t0 = new Thread(() -> {throw new ArithmeticException();});
         t0.start();
 
         t0.setUncaughtExceptionHandler((t, e) -> {
@@ -14,7 +12,5 @@ public class ExceptionInThread {
             System.out.println("ErrorMsg - " + msg);
             throw new RuntimeException(msg, e);
         });
-
     }
-
 }
