@@ -1,12 +1,14 @@
 package com.nishchay.thread.basic.join;
 
+import com.nishchay.Utils;
+
 public class JoinExample {
 
     public static void main(String[] args) throws InterruptedException {
 
-        Thread t1 = new Thread(() -> threadTask(), "thread 1");
-        Thread t2 = new Thread(() -> threadTask(), "thread 2");
-        Thread t3 = new Thread(() -> threadTask(), "thread 3");
+        Thread t1 = new Thread(JoinExample::threadTask, "thread 1");
+        Thread t2 = new Thread(JoinExample::threadTask, "thread 2");
+        Thread t3 = new Thread(JoinExample::threadTask, "thread 3");
 
         t1.start();
         t1.join();
@@ -20,16 +22,8 @@ public class JoinExample {
 
     private static void threadTask() {
         System.out.println("Thread started :- " + Thread.currentThread().getName());
-        sleepThread(1000);
+        Utils.sleep0(1000);
         System.out.println("  Thread ended :- " + Thread.currentThread().getName());
-    }
-
-    private static void sleepThread(int time) {
-        try {
-            Thread.sleep(time);
-        } catch (InterruptedException ex) {
-            ex.printStackTrace();
-        }
     }
 }
 /*
