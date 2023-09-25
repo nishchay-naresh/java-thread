@@ -1,5 +1,7 @@
 package com.nishchay.concurrentpkg.synchronizers.latch;
 
+import com.nishchay.Utils;
+
 import java.util.concurrent.CountDownLatch;
 
 public class Guest implements Runnable {
@@ -11,12 +13,8 @@ public class Guest implements Runnable {
     }
 
     public void run() {
-        try {
-            Thread.sleep(2000);
-            this.latch.countDown();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        Utils.sleep0(2000);
+        this.latch.countDown();
         System.out.printf("Guest named - %s has arrived waiting for further %d more guest to come %n",
                 Thread.currentThread().getName(), latch.getCount());
     }
