@@ -6,7 +6,7 @@ import java.util.concurrent.CountDownLatch;
 
 public class Guest implements Runnable {
 
-    private CountDownLatch latch = null;
+    private final CountDownLatch latch;
 
     public Guest(CountDownLatch latch) {
         this.latch = latch;
