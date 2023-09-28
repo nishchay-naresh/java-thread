@@ -37,8 +37,17 @@ public class ThreadJava8Way {
          * 2. Providing Runnable interface implementation using lambda expression
          * Only one class will be generated -  RunnableUsingLambda.class(main running class)
          * */
-        Thread t2 = new Thread(() -> System.out.println(Thread.currentThread().getName() + " - Creating a thread using lambda expression"));
+        Runnable runnableTask = () -> System.out.println(Thread.currentThread().getName() + " - Creating a thread using lambda expression");
+        Thread t2 = new Thread(runnableTask);
         t2.start();
+
+
+        /*
+         * 3. Providing Runnable interface implementation using lambda expression, not holding it to a local variable
+         * Only one class will be generated -  RunnableUsingLambda.class(main running class)
+         * */
+        Thread t3 = new Thread(() -> System.out.println(Thread.currentThread().getName() + " - Creating a thread using lambda expression"));
+        t3.start();
 
     }
 
