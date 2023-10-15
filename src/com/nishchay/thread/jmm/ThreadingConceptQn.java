@@ -22,8 +22,6 @@ public class ThreadingConceptQn {
             }
         }
 
-
-
         public String getMetrics() {
             return String.format("Failure %d, Success %d Total %d", failVal, successVal, totalVal);
         }
