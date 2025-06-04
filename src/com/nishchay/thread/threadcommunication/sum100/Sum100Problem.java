@@ -8,11 +8,19 @@ public class Sum100Problem {
 
     public static void main(String[] args) throws InterruptedException {
 
+        helloWorldUsingThread();
         sumUsingJoin();
         System.out.println("####################");
         sumUsingThreadState();
         System.out.println("####################");
         sumUsingObjectLock();
+    }
+
+    private static void helloWorldUsingThread() {
+        System.out.println("----Main started----");
+        Thread thread = new Thread(() -> System.out.println("hello"));
+        thread.start();
+        System.out.println("----Main Ended----");
     }
 
     private static void sum100() {
@@ -26,7 +34,7 @@ public class Sum100Problem {
     * */
     private static void sumUsingJoin() throws InterruptedException {
         System.out.println("----Main started----");
-        Thread thread = new Thread(() -> sum100());
+        Thread thread = new Thread(Sum100Problem::sum100);
         thread.start();
         thread.join();
         System.out.println("----Main Ended----");
@@ -61,20 +69,22 @@ public class Sum100Problem {
 
         System.out.println("----Main started----");
 
-        Object lock = new Object();
+        final Object lock = new Object();
         boolean isFinished = false;
-        Sum100Thread t1 = new Sum100Thread(lock, isFinished);
+        Sum100Thread sumTask = new Sum100Thread(lock, isFinished);
+        Thread t1 = new Thread(sumTask);
         t1.start();
 
         synchronized (lock) {
-            while (!t1.isFinished())
+            while (!sumTask.isFinished()) {
                 lock.wait();
+            }
         }
         System.out.println("----Main Ended----");
     }
 
 
-    static class Sum100Thread extends Thread {
+    static class Sum100Thread implements Runnable {
 
         private final Object lock;
         boolean isFinished;
