@@ -52,13 +52,10 @@ public class GetCMEDemo {
             Integer x = itr.next();
             if (x == 5) {
                 list.remove(x);
-                //  iterator's own remove method - is safe against ConcurrentModificationException
+                //  iterators own remove method - is safe against ConcurrentModificationException
                 //  itr.remove();
             }
         }
         System.out.println("List after loop iteration - " + list);
     }
-
-
-
 }

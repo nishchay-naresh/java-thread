@@ -17,14 +17,14 @@ public class GetCMEDemo2Threads {
         list.add("ruby");
         System.out.println("original list - " + list);
 
-        // Exception in thread "main" java.util.ConcurrentModificationException
+//         Exception in thread "main" java.util.ConcurrentModificationException
          Iterator<String> itr = list.iterator(); // iterator should assign prior to structural change
 
         Thread t = new Thread(() -> addToList(list));
         t.start();
         t.join();
 
-//        Iterator<String> itr = list.iterator(); // if we take the iterator post structural modification, we wont get CME
+//        Iterator<String> itr = list.iterator(); // if we take the iterator post structural modification, we won't get CME
         while (itr.hasNext()) {
             String item = itr.next();
             System.out.println(item);
