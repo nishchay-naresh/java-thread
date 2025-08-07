@@ -1,5 +1,7 @@
 package com.nishchay;
 
+import java.util.stream.IntStream;
+
 public class Utils {
 
     /**
@@ -28,4 +30,8 @@ public class Utils {
         }
     }
 
+    public static void simulateThreadWork() {
+        int sum = IntStream.rangeClosed(1, 100).sum();
+        System.out.println("sum of 100 = " + sum);
+    }
 }
