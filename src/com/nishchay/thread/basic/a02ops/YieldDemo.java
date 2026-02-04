@@ -1,4 +1,4 @@
-package com.nishchay.thread.basic.yield;
+package com.nishchay.thread.basic.a02ops;
 
 /*
  * Thread.yield();  -  only method who doesn't throw checked exception - InterruptedException
@@ -17,6 +17,5 @@ public class YieldDemo {
                 });
 
         t.start();
-
     }
 }

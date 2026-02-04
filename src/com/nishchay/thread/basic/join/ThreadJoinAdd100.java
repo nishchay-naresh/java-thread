@@ -2,7 +2,7 @@ package com.nishchay.thread.basic.join;
 
 import java.util.stream.IntStream;
 
-public class Add100ThreadJoin {
+public class ThreadJoinAdd100 {
 
     public static void main(String[] args) throws InterruptedException {
         System.out.println("----Main started----");

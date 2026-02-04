@@ -7,9 +7,9 @@ import java.util.concurrent.*;
 /*
 * ==================== how to stop a thread ======================
 *
-* There is no way, we can stop a thread. No method as such, stop()/cancel()
+* There is no way we can stop a thread. No method as such, stop()/cancel()
 * Co-operative mechanism, we can’t force a thread to suspend
-* Interrupts are co-operative mechanism for indicating stop signal to a thread
+* Interrupts is a co-operative mechanism for indicating stop signal to a thread
 *
 *
 * https://www.youtube.com/watch?v=-7ZB-jpaPPo&ab_channel=DefogTech
@@ -19,65 +19,65 @@ public class InterruptAThread {
 
     public static void main(String[] args) {
 
+        // execute below methods one by one, by commenting others to understand the output better
         interruptNonBlockingThreadRunnable();
         interruptNonBlockingThreadCallable();
 
         interruptSleepingThread();
         interruptWaitingThread();
-
     }
 
 
     /*
-    * Here in this approach , problem is that
-    * You caller thread will never know that , how your worker thread is being finished or returned
+    * Here in this approach, the problem is that
+    * You caller thread will never know that, How your worker thread is being finished or returned
     *  - it's been completed successfully
-    *  - or it's been interrupted
+    *  - or it's been interrupted,
     * So we need to single back the main thread for the interruption. That signal is nothing but the - InterruptedException
     * Since InterruptedException is checked one, so we can't do this with Runnable, we have to move to Callable interface.
     *
     * */
     private static void interruptNonBlockingThreadRunnable() {
 
-        Thread t = new Thread(() -> {
-
+        Runnable task = () -> {
+            System.out.print("Counting - ");
             for (int i = 1; i <= 500; i++) {
-                System.out.println("Counting - " + i);
+                System.out.print(i + ", ");
                 // polling for interrupt
                 if (Thread.currentThread().isInterrupted()) {
+                    System.out.print("\nInterrupted status - " + Thread.currentThread().isInterrupted());
                     // resetting the status
                     Thread.interrupted();
-                    System.out.println("Interrupted status- " + Thread.currentThread().isInterrupted());
+                    System.out.println("\nInterrupted status - " + Thread.currentThread().isInterrupted());
                     return;
                 }
             }
+        };
 
-        });
-
+        Thread t = new Thread(task);
         t.start();
-
         Utils.sleep0(1);
-
         t.interrupt();
-
     }
     /*
      * o/p =>
-     *	Counting - 1,2,3,4...65
-     *	Interrupted status- false
+     *	Counting - 1,2,3,4...165
+     *	Interrupted status - true
+     *  Interrupted status - false
      *
      * */
     private static void interruptNonBlockingThreadCallable() {
 
         // FutureTask is a concrete class that implements both Runnable and Future
         FutureTask<Void> futureTask = new FutureTask<>(() -> {
+            System.out.print("Counting - ");
             for (int i = 1; i <= 500; i++) {
-                System.out.println("Counting - " + i);
+                System.out.print(i + ", ");
 
                 // polling for interrupt
                 if (Thread.currentThread().isInterrupted()) {
-                    throw new InterruptedException();
-                    //can throw any type of Exception
+                    System.out.println();
+                    throw new InterruptedException(); //can throw any type of Exception
                 }
             }
             return null;
@@ -85,9 +85,7 @@ public class InterruptAThread {
 
         Thread t = new Thread(futureTask);
         t.start();
-
         Utils.sleep0(1);
-
         t.interrupt();
 
         try {
@@ -100,8 +98,7 @@ public class InterruptAThread {
     }
 
     private static void interruptSleepingThread() {
-
-        Thread t = new Thread(() -> {
+        Runnable task = () -> {
             System.out.println("started");
             try {
                 Thread.sleep(3 * 1000);
@@ -111,11 +108,11 @@ public class InterruptAThread {
                 throw new RuntimeException("Exception trace - " + e);
             }
             System.out.println("finished");
-        });
+        };
 
+        Thread t = new Thread(task);
         t.start();
         t.interrupt();
-
     }
 
     private static void interruptWaitingThread() {
@@ -138,20 +135,5 @@ public class InterruptAThread {
 
         t.start();
         t.interrupt();
-
     }
-
 }
-
-/*
-O/P =>
-
-Counting - 1,2...50+..73
-Counting - 72
-thread is been interrupted
-Exception in thread "main" java.lang.RuntimeException: Thread interrupted...java.util.concurrent.ExecutionException: java.lang.InterruptedException
-	at com.nishchay.thread.basic.interrupt.InterruptAThread.interruptNonBlockingThreadCallable(InterruptAThread.java:88)
-	at com.nishchay.thread.basic.interrupt.InterruptAThread.interruptNonBlockingThreadEx(InterruptAThread.java:27)
-	at com.nishchay.thread.basic.interrupt.InterruptAThread.main(InterruptAThread.java:19)
-
-*/

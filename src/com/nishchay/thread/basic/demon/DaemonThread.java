@@ -1,48 +1,95 @@
 package com.nishchay.thread.basic.demon;
 
 
-
-/*
- *
- *	Daemon threads are low-priority threads that conduct supporting tasks, whereas
- *	Non-Daemon threads are high-priority threads that handle particular tasks
- *
- *	the JVM always waits for non-daemon threads to complete their tasks, but not for demon threads
- *
- * if A background running task is set as demon, JVM will exit as soon as it finishes its own task
- * Else JVM will also be running, until demon thread is not getting stopped
- *
- * */
-
 import com.nishchay.Utils;
 
+/*
+ *  A daemon thread is a low-priority background thread that runs only as long as at least one user thread is alive.
+ *
+ *  A daemon thread in Java is a background thread that supports user threads.
+ *  The JVM does not wait for daemon threads to complete execution.
+ *  When all user threads finish, the JVM terminates daemon threads automatically.
+ *
+ * Use cases for a daemon thread:
+ * 	-	Logging
+ * 	-	Monitoring
+ * 	-	Cleanup tasks
+ * 	-	Cache eviction
+ * 	-	Heartbeat checks
+ *
+ * */
 public class DaemonThread {
 
     public static void main(String[] args) {
 
-        Thread thrd = new Thread(new DirectoryWatcherTask());
-
-//        If comment below line JVM will not exit until this threads gets finish, which in turns never
-//        Once setting this threads as demon, JVM will exit as soon as it finishes main thread task
-        thrd.setDaemon(true);
-        thrd.start();
-
-        for (int i = 1; i <= 200; i++) {
-            System.out.print(" M ");
-        }
+        demonThreadEx();
+        // execute below methods one by one, by commenting others to understand the output better
+        jvmWaitsForUserThread();
+        jvmExitForDemonThread();
     }
-}
 
-class DirectoryWatcherTask implements Runnable {
-
-    @Override
-    public void run() {
-
-        while (true) {
-            System.out.println("checking directory for file update ...");
-            // Utils.wait0(1 * 1000);
-        }
+    /*
+     * ❌ You cannot make a thread daemon after it starts
+     * t.start();
+     * t.setDaemon(true); // throws - java.lang.IllegalThreadStateException
+     *
+     * ✅ Correct order
+     * t.setDaemon(true);
+     * t.start();
+    *
+    * */
+    private static void demonThreadEx() {
+        Thread t1 = new Thread(() -> System.out.println("java"));
+        t1.start();
+        // t1.setDaemon(true); // throws - java.lang.IllegalThreadStateException
     }
+
+    // JVM will keep running forever, because a user thread is alive
+    private static void jvmWaitsForUserThread() {
+        Runnable infiniteTask = () -> {
+            long start = System.currentTimeMillis();
+            while (true) {
+                System.out.println("User thread running");
+                Utils.sleep0(1000);
+                // making it finite - breaking an infinite loop after 15 sec
+                long secs = (System.currentTimeMillis() - start) / 1000;
+                if (secs > 10) {
+                    break;
+                }
+            }
+        };
+
+        Thread t = new Thread(infiniteTask);
+        t.start();
+    }
+
+    /*
+     * JVM exits immediately after main thread ends
+     * Daemon thread is killed automatically
+     *
+     * op =>
+     * Daemon thread running
+     * Daemon thread running
+     * Daemon thread running
+     * Main thread exiting
+     *
+     * */
+    private static void jvmExitForDemonThread() {
+        Runnable infiniteTask = () -> {
+            while (true) {
+                System.out.println("Daemon thread running");
+                Utils.sleep0(1000);
+            }
+        };
+
+        Thread thread = new Thread(infiniteTask);
+        thread.setDaemon(true);
+        thread.start();
+
+        Utils.sleep0(3 * 1000);
+        System.out.println("Main thread exiting");
+    }
+
 }
 
 

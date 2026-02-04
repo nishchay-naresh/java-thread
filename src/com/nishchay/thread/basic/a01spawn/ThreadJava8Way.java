@@ -1,4 +1,4 @@
-package com.nishchay.thread.basic.spawnthread;
+package com.nishchay.thread.basic.a01spawn;
 
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
@@ -12,18 +12,17 @@ public class ThreadJava8Way {
 
     /*
      *
-     * Basic difference in both the approach
+     * The Basic difference in both the approach
      * In java method is the 2nd class citizen, A method can't exist as independent, it must be wrapped around an Object
-     *
-     * 1. anonymous inner class - We are passing the behaviour, by wrapping it under a class
-     * 2. lambda expression - passing the behaviour as en independent entity, which has been pointed by lambda
+     *      1. Anonymous inner class - We are passing the behavior, by wrapping it under a class
+     *      2. lambda expression - passing the behavior as en independent entity, which will be wrapped in a lambda
      *
      * */
     private static void runnableUsingLambda() {
 
         /*
          * 1. Providing Runnable interface implementation using anonymous inner class
-         * Two class will be generated -  RunnableUsingLambda.class, RunnableUsingLambda$1.class(main running class)
+         * Two class will be generated - ThreadJava8Way.class, ThreadJava8Way$1.class(main running class)
          * */
         Thread t1 = new Thread(new Runnable() {
             @Override
@@ -35,20 +34,10 @@ public class ThreadJava8Way {
 
         /*
          * 2. Providing Runnable interface implementation using lambda expression
-         * Only one class will be generated -  RunnableUsingLambda.class(main running class)
+         * Only one class will be generated - ThreadJava8Way.class(main running class)
          * */
-        Runnable runnableTask = () -> System.out.println(Thread.currentThread().getName() + " - Creating a thread using lambda expression");
-        Thread t2 = new Thread(runnableTask);
+        Thread t2 = new Thread(() -> System.out.println(Thread.currentThread().getName() + " - Creating a thread using lambda expression"));
         t2.start();
-
-
-        /*
-         * 3. Providing Runnable interface implementation using lambda expression, not holding it to a local variable
-         * Only one class will be generated -  RunnableUsingLambda.class(main running class)
-         * */
-        Thread t3 = new Thread(() -> System.out.println(Thread.currentThread().getName() + " - Creating a thread using lambda expression"));
-        t3.start();
-
     }
 
     /*
@@ -70,7 +59,5 @@ public class ThreadJava8Way {
         } catch (InterruptedException | ExecutionException e) {
             throw new RuntimeException(e);
         }
-
     }
-
 }
