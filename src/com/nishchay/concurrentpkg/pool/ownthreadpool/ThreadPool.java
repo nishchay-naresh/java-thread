@@ -6,26 +6,26 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
 /* 
- *  LIFECYCLE : Construction -> submitTask (for execution) - >  shutDown
+ *  LIFECYCLE: Construction -> submitTask (for execution) - >  shutDown
  *		t1[]		t2[]		t3[]		pool of size : 3	
  * 			\		|		/
  * 			[][][][][][] BlockingQueue
  * 	sharing same BQ across all running threads
  * 
- * Construction : 
+ * Construction:
  * 	-	instantiating a BQ as per maxNoOfTasks
- * 	-	creating no of worker threads(sharing same BQ across all threads), as per noOfThreads
+ * 	-	creating no of worker thread (sharing the same BQ across all threads), as per noOfThreads
  * 	-	start all the worker threads
  * 					
  */
 public class ThreadPool {
 
-	private BlockingQueue<Runnable> taskQueue = null;
-	private List<WorkerThreads> threads = new ArrayList<WorkerThreads>();
+	private final BlockingQueue<Runnable> taskQueue;
+	private final List<WorkerThreads> threads = new ArrayList<>();
 	private boolean isStopped = false;
 
 	public ThreadPool(int noOfThreads, int maxNoOfTasks) {
-		taskQueue = new ArrayBlockingQueue<Runnable>(maxNoOfTasks);
+		taskQueue = new ArrayBlockingQueue<>(maxNoOfTasks);
 
 		for (int i = 1; i <= noOfThreads; i++) {
 			threads.add(new WorkerThreads("thread - "+i,taskQueue));
@@ -42,7 +42,7 @@ public class ThreadPool {
 		this.taskQueue.put(task);
 	}
 
-	// implemented in shutdown now manner
+	// implemented in shutdownNow() manner
 	public synchronized void shutDown() {
 		this.isStopped = true;
 		for (WorkerThreads thread : threads) {
@@ -56,9 +56,10 @@ public class ThreadPool {
 
 /*
 How to Create a Thread pool
-		-Create n threads. Call them as workers.
-		-For each worker, Implement run method with two constraints 
-			1. Wait for a task on a queue 2. Execute the task and go back to waiting state.
-		-Expose addTask method that adds a task to that task Queue.
+		- Create n threads. Call them as workers.
+		- For each worker, Implement run method with two constraints
+			1. Wait for a task on queue
+			2. Execute the task and go back to waiting state.
+		- Expose addTask method that adds a task to that task Queue.
 
 */

@@ -10,7 +10,6 @@ public class A04SingleThreadPool {
 
         basicEx();
         counterEx();
-
     }
 
     private static void basicEx() {
@@ -23,7 +22,6 @@ public class A04SingleThreadPool {
         executor.shutdown();
 
         new Thread(task).start();
-
     }
 
     private static void counterEx() {
@@ -31,22 +29,10 @@ public class A04SingleThreadPool {
         AtomicInteger counter = new AtomicInteger();
 
         ExecutorService executor = Executors.newSingleThreadExecutor();
-        executor.submit(() -> {
-            counter.set(1);
-        });
-
-        executor.submit(() -> {
-            counter.compareAndSet(1, 2);
-        });
-
-        executor.submit(() -> {
-            counter.compareAndSet(2, 3);
-        });
-
+        executor.submit(() -> counter.set(1));
+        executor.submit(() -> counter.compareAndSet(1, 2));
+        executor.submit(() -> counter.compareAndSet(2, 3));
         System.out.println("counter - " + counter.get()); // 3
-
         executor.shutdown();
     }
-
-
 }

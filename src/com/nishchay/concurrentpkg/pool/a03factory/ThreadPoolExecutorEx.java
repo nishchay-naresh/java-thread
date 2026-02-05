@@ -15,11 +15,11 @@ public class ThreadPoolExecutorEx {
      *  Executors factory methods hide unbounded queues or threads, which can cause OOM or CPU exhaustion.
      *  ThreadPoolExecutor gives explicit control and predictable behavior, so it’s preferred in production.
      *
-     * What happens under heavy load?
+     * What happens under a heavy load?
      * 	-	First 4 tasks → core threads
      * 	-	Next 100 tasks → queue
      * 	-	Next tasks → extra threads up to 8
-     * 	-	Beyond that → caller executes task (system slows instead of crashing)
+     * 	-	Beyond that → caller executes a task (a system slows instead of crashing)
      * 	-	That’s back-pressure, which is what production systems need.
      *
      * */

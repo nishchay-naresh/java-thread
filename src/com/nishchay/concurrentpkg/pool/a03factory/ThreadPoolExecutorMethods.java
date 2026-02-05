@@ -51,7 +51,7 @@ public class ThreadPoolExecutorMethods {
  *
  * pool thread count - 0
  * finishing a small task
- * Queue size(task waiting in queue) - 2
+ * Queue size (task waiting in queue) - 2
  * pool thread count - 2
  * CompletedTaskCount - 1
  * thread in execution - 2

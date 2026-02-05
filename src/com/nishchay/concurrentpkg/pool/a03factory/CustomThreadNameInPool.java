@@ -8,7 +8,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 /*
  *
- *	1. Why do we need custom thread names in a ThreadPool?
+ *	1. Why do we need custom thread names in ThreadPool?
  *	Default thread names look like:
  *			pool-1-thread-3
  *			pool-2-thread-4

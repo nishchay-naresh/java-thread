@@ -16,15 +16,13 @@ public class A03ScheduledThreadPool {
         System.out.println("Current Time: " + LocalTime.now());
 
         // 1. Schedule a one-time task
-        scheduler.schedule(() -> {
-            System.out.println("One-time task executed at: " + LocalTime.now());
-        }, 5, TimeUnit.SECONDS);
+        scheduler.schedule(() -> System.out.println("One-time task executed at: " + LocalTime.now()),
+                5, TimeUnit.SECONDS);
 
         // 2. Schedule a periodic task with a fixed rate
         // This task will run every 2 seconds, starting 3 seconds from now.
-        scheduler.scheduleAtFixedRate(() -> {
-            System.out.println("Fixed-rate task executed at: " + LocalTime.now());
-        }, 3, 2, TimeUnit.SECONDS);
+        scheduler.scheduleAtFixedRate(() -> System.out.println("Fixed-rate task executed at: " + LocalTime.now()),
+                3, 2, TimeUnit.SECONDS);
 
         // 3. Schedule a periodic task with a fixed delay
         // This task will wait 2 seconds after the previous task finishes before starting.
