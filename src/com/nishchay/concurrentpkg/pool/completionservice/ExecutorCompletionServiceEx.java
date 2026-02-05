@@ -4,13 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.*;
 
-public class ExecutorCompletionServiceExample {
+public class ExecutorCompletionServiceEx {
 
     public static void main(String[] args) {
-
-        executorServiceEvaluation();
-        executorCompletionServiceEvaluation();
-
+        extractingFutureInOrderOfTaskSubmission();
+        extractingFutureInOrderOfTaskCompletion();
     }
 
     /*
@@ -18,11 +16,11 @@ public class ExecutorCompletionServiceExample {
      *	Problem -
      *	With the case ExecutorService, since we are extracting out the result (future.get()) in order of their submission.
      *	So if the last submitted task is finished with the execution and the first one is still in execution.
-     *	So we have to wait for first task to finish to extract the result of finished last job.
+     *	So we have to wait for the first task to finish to extract the result of finished last job.
      *
      * Here we are extracting the result in the order of their submission
      * */
-    private static void executorServiceEvaluation() {
+    private static void extractingFutureInOrderOfTaskSubmission() {
 
         List<DownloadTask> downloadTasks = getTaskList();
 
@@ -41,10 +39,9 @@ public class ExecutorCompletionServiceExample {
             try {
                 System.out.println(future.get());
             } catch (InterruptedException | ExecutionException e) {
-                e.printStackTrace();
+                System.err.println("Error" + e);
             }
         }
-
     }
 
     /*
@@ -54,7 +51,7 @@ public class ExecutorCompletionServiceExample {
      *	But uses an addition Queue<Future>, which arranges/holds the task upon completion of their execution.
      *
      * */
-    private static void executorCompletionServiceEvaluation() {
+    private static void extractingFutureInOrderOfTaskCompletion() {
 
         List<DownloadTask> downloadTasks = getTaskList();
 
@@ -72,10 +69,9 @@ public class ExecutorCompletionServiceExample {
                 String result = executorCompletionService.take().get();
                 System.out.println(result);
             } catch (InterruptedException | ExecutionException e) {
-                e.printStackTrace();
+                System.err.println("Error" + e);
             }
         }
-
     }
 
 
@@ -89,7 +85,24 @@ public class ExecutorCompletionServiceExample {
         return downloadTasks;
     }
 
+    static class DownloadTask implements Callable<String> {
 
+        private final String taskName;
+        private final int sleepTime;
+
+        public DownloadTask(String taskName, int sleepTime) {
+            this.taskName = taskName;
+            this.sleepTime = sleepTime;
+        }
+
+        @Override
+        public String call() throws Exception {
+            System.out.println("Started taskName: " + taskName);
+            int size = sleepTime * 1000;
+            Thread.sleep(size);
+            return "Completed taskName: " + taskName + " Downloaded data - " + size;
+        }
+    }
 }
 
 /*

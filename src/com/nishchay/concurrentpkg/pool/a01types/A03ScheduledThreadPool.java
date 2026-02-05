@@ -1,13 +1,13 @@
-package com.nishchay.concurrentpkg.pool;
+package com.nishchay.concurrentpkg.pool.a01types;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.time.LocalTime;
 
-import static com.nishchay.Utils.sleep0;
+import com.nishchay.Utils;
 
-public class ScheduledThreadPoolEx {
+public class A03ScheduledThreadPool {
 
     public static void main(String[] args) {
         // Create a scheduled thread pool with 3 threads.
@@ -31,7 +31,7 @@ public class ScheduledThreadPoolEx {
         scheduler.scheduleWithFixedDelay(() -> {
             System.out.println("Fixed-delay task executed at: " + LocalTime.now());
             // Simulate a long-running task
-            sleep0(1500);
+            Utils.sleep0(1500);
         }, 3, 2, TimeUnit.SECONDS);
 
         // Shut down the scheduler after 15 seconds.

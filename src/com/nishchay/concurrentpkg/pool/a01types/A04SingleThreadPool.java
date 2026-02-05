@@ -1,10 +1,10 @@
-package com.nishchay.concurrentpkg.pool;
+package com.nishchay.concurrentpkg.pool.a01types;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class SingleThreadPool {
+public class A04SingleThreadPool {
 
     public static void main(String[] args) {
 
