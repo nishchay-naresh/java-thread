@@ -1,4 +1,4 @@
-package com.nishchay.thread.synchronize.netpractice;
+package com.nishchay.thread.synchronize.a01netpractice;
 
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;

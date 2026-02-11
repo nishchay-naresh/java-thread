@@ -1,4 +1,6 @@
-package com.nishchay.thread.threadcommunication.sum100.threadlock;
+package com.nishchay.thread.synchronize.sum100;
+
+import com.nishchay.Utils;
 
 /*
 * This solution is written using wait & notify
@@ -6,7 +8,7 @@ package com.nishchay.thread.threadcommunication.sum100.threadlock;
 * Not taking care for the spurious wakeup scenario
 *
 * */
-public class Add100Thread {
+public class Sum100ThreadObjectLocking {
 
     public static void main(String[] args) throws InterruptedException {
 
@@ -21,6 +23,20 @@ public class Add100Thread {
             System.out.println("main thread got notification");
         }
         System.out.println("-----------------Main Ended---------------");
+
+    }
+
+    static class Sum100Thread extends Thread {
+
+        @Override
+        public void run() {
+            synchronized (this) {
+                System.out.println("child thread execution started");
+                Utils.sum100();
+                System.out.println("child thread notifying main thread");
+                this.notify();
+            }
+        }
 
     }
 }

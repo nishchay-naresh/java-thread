@@ -1,10 +1,10 @@
-package com.nishchay.thread.synchronize.netpractice;
+package com.nishchay.thread.synchronize.a01netpractice;
 
 public class NetPracticeThreadSync {
 
     public static void main(String[] args) {
 
-        //share same copy of shared object across multiple threads to achieve synchronisation
+        //Share the same copy of a shared object across multiple threads to achieve synchronization
         Pitch pitch = new Pitch();
 
         Thread t1 = new Thread(new PitchAllocate(pitch,"Dhoni"), "Thread 1");

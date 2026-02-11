@@ -1,10 +1,8 @@
-package com.nishchay.thread.threadcommunication.sum100;
+package com.nishchay.thread.synchronize.sum100;
 
-import java.util.stream.IntStream;
+import com.nishchay.Utils;
 
-import static com.nishchay.Utils.sleep0;
-
-public class Sum100Problem {
+public class Sum100InThread {
 
     public static void main(String[] args) throws InterruptedException {
 
@@ -23,43 +21,38 @@ public class Sum100Problem {
         System.out.println("----Main Ended----");
     }
 
-    private static void sum100() {
-        int sum = IntStream.rangeClosed(1, 100).sum();
-        System.out.println("sum of 100 = " + sum);
-    }
-
     /*
-    * Approach 1 : Using Thread.join()
+    * Approach 1: Using Thread.join()
     *
     * */
     private static void sumUsingJoin() throws InterruptedException {
         System.out.println("----Main started----");
-        Thread thread = new Thread(Sum100Problem::sum100);
+        Thread thread = new Thread(Utils::sum100);
         thread.start();
         thread.join();
         System.out.println("----Main Ended----");
     }
 
     /*
-     * Approach 2 : Using Thread.State enum for thread state completion
+     * Approach 2: Using Thread.State enum for thread state completion
      *
-     * Since we have the thread reference here in main
-     * So checking for user thread completion here in main by using Thread.State enum, till then waiting
+     * Since we have the thread reference here in main,
+     * So check a user thread completion here in main by using Thread.State enum, till then waiting
      *
      * */
     private static void sumUsingThreadState(){
         System.out.println("----Main started----");
-        Thread thread = new Thread(Sum100Problem::sum100);
+        Thread thread = new Thread(Utils::sum100);
         thread.start();
 
         while(!thread.getState().equals(Thread.State.TERMINATED)){
-            sleep0(1000);
+            Utils.sleep0(1000);
         }
         System.out.println("----Main Ended----");
     }
 
     /*
-     * Approach 3 : Using synchronization, Object locking concept using wait() & notify()
+     * Approach 3: Using synchronization, Object locking concept using wait() & notify()
      *
      * Main thread is waiting for the signal from user thread.
      * User thread will send a single upon its completion using isFinished flag
@@ -70,8 +63,7 @@ public class Sum100Problem {
         System.out.println("----Main started----");
 
         final Object lock = new Object();
-        boolean isFinished = false;
-        Sum100Thread sumTask = new Sum100Thread(lock, isFinished);
+        Sum100Thread sumTask = new Sum100Thread(lock, false);
         Thread t1 = new Thread(sumTask);
         t1.start();
 
@@ -87,7 +79,7 @@ public class Sum100Problem {
     static class Sum100Thread implements Runnable {
 
         private final Object lock;
-        boolean isFinished;
+        private boolean isFinished;
 
         // getter is very imp here, else we will always read the local variable value and loop will never terminate
         public boolean isFinished() {
@@ -102,13 +94,12 @@ public class Sum100Problem {
         @Override
         public void run() {
             synchronized (lock) {
-                sum100(); // inner class can access the outer class method
+                Utils.sum100();
                 isFinished = true;
                 lock.notify();
             }
         }
     }
-
 }
 /*
  * O/P =>

@@ -1,15 +1,15 @@
-package com.nishchay.thread.threadcommunication.sum100.objectlock;
+package com.nishchay.thread.synchronize.sum100;
 
 
 import java.util.stream.IntStream;
 
 /*
  * This solution is written using wait & notify
- * Locking is based on user defined object Lock ( doing a purpose of Mutable Boolean class )
+ * Locking is based on user defined object Lock (doing a purpose of Mutable Boolean class )
  * Taking care for the spurious wakeup scenario
  *
  * */
-public class Add100WaitNotify {
+public class Sum100SharedObjectLocking {
 
     public static void main(String[] args) throws InterruptedException {
 
@@ -54,7 +54,7 @@ public class Add100WaitNotify {
 
     }
 
-    // Boolean is immutable class, so Writing own lock class for Boolean mutability
+    // Boolean is an immutable class, so Writing own lock class for Boolean mutability
     static class MyLock {
 
         boolean childTurn;
