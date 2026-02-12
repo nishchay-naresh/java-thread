@@ -1,5 +1,11 @@
 package com.nishchay.thread.basic.a02ops;
 
+
+/*
+*
+* public final String getName()
+* public final synchronized void setName(String name)
+* */
 public class SettingGettingThreadName {
 
     public static void main(String[] args) {
@@ -9,7 +15,7 @@ public class SettingGettingThreadName {
 
         Runnable task = () -> System.out.println("user thread default name - " + Thread.currentThread().getName());
 
-        // user thread default name  - Thread-0, Thread-1, Thread-2.... so on if not given names
+        // user thread default name - Thread-0, Thread-1, Thread-2....so on if not given names
         Thread t0 = new Thread(task);
         t0.start();
 

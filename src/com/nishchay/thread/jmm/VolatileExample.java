@@ -21,7 +21,7 @@ public class VolatileExample {
     public void reader() {
         int r1, r2, r3;
         if (v) {
-            // guarantee to see 42, bcus x can be cached as well
+            // guarantee to see 42, because x can be cached as well
             r1 = x;
             r2 = y;
             r3 = z;
@@ -45,6 +45,6 @@ public class VolatileExample {
 *   Volatile solves below 3 issues of java concurrency :
     1. Visibility                   <-- by ensuring read/write from main memory
     2. Happens Before               <-- Ensuring these two by creating barrier
-    3. Instruction Reordering 
+    3. Instruction Reordering
 *
 * */

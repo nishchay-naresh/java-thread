@@ -10,6 +10,8 @@ import com.nishchay.Utils;
  *  The JVM does not wait for daemon threads to complete execution.
  *  When all user threads finish, the JVM terminates daemon threads automatically.
  *
+ * Main thread is a user thread - not daemon
+ *
  * Use cases for a daemon thread:
  * 	-	Logging
  * 	-	Monitoring
@@ -44,7 +46,10 @@ public class DaemonThread {
         // t1.setDaemon(true); // throws - java.lang.IllegalThreadStateException
     }
 
-    // JVM will keep running forever, because a user thread is alive
+    /*
+    * JVM will keep running forever, because a user thread is alive
+    * making it finite - breaking an infinite loop after 15 sec
+    * */
     private static void jvmWaitsForUserThread() {
         Runnable infiniteTask = () -> {
             long start = System.currentTimeMillis();
@@ -89,7 +94,6 @@ public class DaemonThread {
         Utils.sleep0(3 * 1000);
         System.out.println("Main thread exiting");
     }
-
 }
 
 

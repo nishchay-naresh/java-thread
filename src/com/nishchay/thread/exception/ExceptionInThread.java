@@ -9,10 +9,11 @@ public class ExceptionInThread {
             throw new RuntimeException("Boom");
         };
 
+        // execute below methods one by one, by commenting others to understand the output better
         noHandler(taskThrowException);
-        withHandlerLocal(taskThrowException);
-        withHandlerLocal2Threads(taskThrowException);
-        withHandlerGlobal(taskThrowException);
+        withLocalHandler(taskThrowException);
+        withLocalHandler2Threads(taskThrowException);
+        withGlobalHandler(taskThrowException);
     }
 
     /*
@@ -53,7 +54,7 @@ public class ExceptionInThread {
      * Thread Thread-0 crashed: Boom
      *
      * */
-    private static void withHandlerLocal(Runnable r) {
+    private static void withLocalHandler(Runnable r) {
         Thread.UncaughtExceptionHandler handler =
                 (thread, ex) -> System.err.println("Thread " + thread.getName() + " crashed: " + ex.getMessage());
 
@@ -68,11 +69,11 @@ public class ExceptionInThread {
      * O/P =>
      * Thread-0 throwing exception from run() method
      * Thread-1 throwing exception from run() method
-     * Handler1 : Thread Thread-0 crashed: Boom
-     * Handler2 : Thread Thread-1 crashed: Boom
+     * Handler1: Thread Thread-0 crashed: Boom
+     * Handler2: Thread Thread-1 crashed: Boom
      *
      * */
-    public static void withHandlerLocal2Threads(Runnable r) {
+    public static void withLocalHandler2Threads(Runnable r) {
         Thread.UncaughtExceptionHandler handler1 =
                 (thread, ex) -> System.err.println("Handler1 : Thread " + thread.getName() + " crashed: " + ex.getMessage());
 
@@ -105,7 +106,7 @@ public class ExceptionInThread {
      * GenericHandler : Thread Thread-4 crashed: Boom
      *
      * */
-    private static void withHandlerGlobal(Runnable r) {
+    private static void withGlobalHandler(Runnable r) {
 
         Thread.UncaughtExceptionHandler genericHandler =
                 (thread, ex) -> System.err.println("GenericHandler : Thread " + thread.getName() + " crashed: " + ex.getMessage());

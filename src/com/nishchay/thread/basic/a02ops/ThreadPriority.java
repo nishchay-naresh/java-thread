@@ -3,7 +3,13 @@ package com.nishchay.thread.basic.a02ops;
 public class ThreadPriority {
 
     /*
-     *      setPriority(1-10) argument value can be 1 to 10, else it will throw IllegalArgumentException
+     *  thread priority - can be a number between 1-10
+     *     public final static int MIN_PRIORITY = 1;
+     *     public final static int NORM_PRIORITY = 5;
+     *     public final static int MAX_PRIORITY = 10;
+     *
+     *
+     * setPriority(1-10) argument value can be 1 to 10, else it will throw IllegalArgumentException
      *         if (newPriority > MAX_PRIORITY || newPriority < MIN_PRIORITY) {
      *                throw new IllegalArgumentException();
      *          }

@@ -19,6 +19,10 @@ import java.util.concurrent.atomic.AtomicBoolean;
  *
  * By using proper blocking mechanisms, we can avoid busy-waiting and write more efficient, responsive multithreaded code.
  *
+ *      monior.wait() => Utila.wait0(this)  did this to make the code short and crisp
+ *
+ * Since synchronized locks are re-entrant in Java. Making wait0() as synchronized method
+ *
  * https://www.baeldung.com/java-busy-waiting-alternatives
  * */
 public class BusyWaitingEx {
