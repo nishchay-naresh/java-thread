@@ -97,7 +97,7 @@ public class DeadlockDemo {
 /*
 * O/P =>
 * Main is done
-* Both the thread formed a deadlock and trying to acquire a lock which is been held by other thread
+* Both the thread is trying to acquire a lock which is held by another thread and formed a deadlock.
 * both threads will run for an indefinite time
 *
 * */

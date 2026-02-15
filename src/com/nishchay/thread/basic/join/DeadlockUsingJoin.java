@@ -13,7 +13,7 @@ public class DeadlockUsingJoin {
             Thread.currentThread().join();
             System.out.println("Joining main thread for the completion of main thread itself");
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            System.err.println("Error" + e);
         }
     }
 }

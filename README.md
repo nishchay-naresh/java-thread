@@ -3,11 +3,12 @@ Java threading concepts
 
 
 ### spawning a thread
-To spawn a new Thread, get it executed as independent path of execution.
-One need 3 things :
+To spawn a new Thread and get it executed in a new path of execution:
+One need 4 things:
 1. Task - in the form of Runnable implementation
-2. Worker - a Thread class object
-3. Assigning task to the Worker - Passing task to the worker & invoking t.start()
+2. Worker - Thread class object
+3. Assigning this task to the Worker - Thread(Runnable r)
+4. call start() to execute it in a new path of execution
 
 ``` 
         // java8 way to create a thread - Providing Runnable interface implementation using lambda expression
@@ -37,13 +38,17 @@ A thread can be in one of the following states:
 
 ### demon thread
 
-* Daemon threads are low-priority threads that conduct supporting tasks, whereas
-* Non-Daemon threads are high-priority threads that handle particular tasks
-
-The purpose of daemon threads is serving user threads, there’s no need to keep daemon threads running if all user threads terminate. That’s why the JVM will exit if there are only daemon threads running.
+*  A daemon thread in Java is a background thread that supports user threads.
+*  The JVM does not wait for daemon threads to complete execution.
+*  When all user threads finish, the JVM terminates daemon threads automatically.
 
 ### method to prevent thread execution
 1.	t.join()
+``` 
+        t.join();
+        The thread that calls join() pauses
+        Until thread t completes execution
+``` 
 2.	t.interrupt()
 3.	Thread.sleep()
 4.	Thread.yield()
@@ -69,8 +74,8 @@ And the Synchronized object lock could be
 3.	notifyAll()
 
 ### Uncaught Exception in Threads
-+	specific exception handler for each of the thread
-+	generic exception handler for all of the thread
++	specific exception handler for each of the threads
++	generic exception handler for all the thread
 
 # java.util.concurrent Package
 Exploring java concurrent Package
