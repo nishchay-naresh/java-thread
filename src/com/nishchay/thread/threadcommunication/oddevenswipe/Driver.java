@@ -2,7 +2,7 @@ package com.nishchay.thread.threadcommunication.oddevenswipe;
 
 /*
  * MultiThreading In Java: Print below sequence using two thread thread1 & thread2
- * MultiThreading In Java: : Print 1 to 10 using 2 thread, swipe thread value after a pair print
+ * MultiThreading In Java: Print 1 to 10 using 2 thread, swipe thread value after a pair print
  *
  * thread1 - 1
  * thread2 - 2
