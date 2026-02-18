@@ -3,15 +3,15 @@ package com.nishchay.thread.threadcommunication.oddevenswipe;
 import java.util.concurrent.Exchanger;
 
 /*
- * MultiThreading In Java: Print below sequence using two thread thread1 & thread2
- * MultiThreading In Java: Print 1 to 10 using 2 thread, swipe thread value after a pair print
+ * MultiThreading In Java: Print below a sequence using two thread thread1 & thread2
+ * MultiThreading In Java: Print 1 to 10 using two threads, swipe thread value after a pair print
  *
  * thread1 - 1
  * thread2 - 2
- * ....
+ * .....
  * thread1 - 4
  * thread2 - 3
- * ....
+ * .....
  * thread1 - 5
  * thread2 - 6
  * .....
