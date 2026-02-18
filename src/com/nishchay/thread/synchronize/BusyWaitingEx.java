@@ -86,7 +86,11 @@ public class BusyWaitingEx {
         synchronized (monitor) {
             while (!taskDone.get()) {
                 counter++;
-                Utils.wait0(monitor);
+                try {
+                    monitor.wait();
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }
             }
         }
 

@@ -117,13 +117,13 @@ Exploring java concurrent Package
 
 ### Synchronizers
 
-1.	Semaphore - a synchronizer to maintains set of permits
-2.	CountDownLatch
-3.	CyclicBarrier
-4.	SynchronousQueue
-5.	Exchanger
-6.	Phaser
+1.	Semaphore - a synchronizer to maintain a set of permits
+2.	CountDownLatch - Main task waits on latch.await(), till all sub-task execute their latch.countDown()
+3.	CyclicBarrier - Parallel threads are waiting for each other to reach a common point before continuing execution
+4.	SynchronousQueue - Zero-capacity handoff queue
+5.	Exchanger - Two threads swap data at a rendezvous point
+6.	Phaser - can act like a CountDownLatch / CyclicBarrier with dynamic Registries & De-Register feature
 
 
 
- 
+

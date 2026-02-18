@@ -4,9 +4,10 @@ package com.nishchay.thread.synchronize.sum100;
 import java.util.stream.IntStream;
 
 /*
- * This solution is written using wait & notify
- * Locking is based on user defined object Lock (doing a purpose of Mutable Boolean class )
+ * This solution is written using wait and notify
+ * Locking is based on user defined object Lock (doing a purpose of Mutable Boolean class)
  * Taking care for the spurious wakeup scenario
+ * Spurious Wakeup (Thread can wake up without notify)
  *
  * */
 public class Sum100SharedObjectLocking {

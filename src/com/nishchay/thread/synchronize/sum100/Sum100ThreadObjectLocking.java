@@ -3,7 +3,7 @@ package com.nishchay.thread.synchronize.sum100;
 import com.nishchay.Utils;
 
 /*
-* This solution is written using wait & notify
+* This solution is written using wait and notify
 * Locking is based on the Thread class object itself
 * Not taking care for the spurious wakeup scenario
 *

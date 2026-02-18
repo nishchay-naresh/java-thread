@@ -8,7 +8,7 @@ import com.nishchay.Utils;
  * 	1. Main thread,
  * 	2. A user thread, spawn by main only
  *
- * This solution is written using wait & notify
+ * This solution is written using wait and notify
  * Locking is based on user defined object Lock, singling is happening based on boolean flag
  * Taking care of the spurious wakeup scenario
  *
@@ -29,7 +29,7 @@ import com.nishchay.Utils;
  *			while (!childDone[0]) {
  *	    		lock.wait();
  *			}
- *		-	Handles spurious wake-ups
+ *		-	Handles Spurious Wakeup (Thread can wake up without notify)
  *		-	Correct wait/notify pattern
  *		-	if is wrong in real multithreaded code.
  *
