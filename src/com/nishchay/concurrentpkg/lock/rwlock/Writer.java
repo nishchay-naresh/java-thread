@@ -2,7 +2,7 @@ package com.nishchay.concurrentpkg.lock.rwlock;
 
 import java.util.Random;
 
-import static com.nishchay.Utils.sleep0;
+import com.nishchay.Utils;
 
 /**
  * Writer.java
@@ -20,7 +20,7 @@ public class Writer extends Thread {
         int number = random.nextInt(100);
         sharedList.add(number);
 
-        sleep0(100);
+        Utils.sleep0(100);
         System.out.println(getName() + " -> put: " + number);
     }
 }

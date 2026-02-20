@@ -2,7 +2,7 @@ package com.nishchay.concurrentpkg.lock.rwlock;
 
 import java.util.Random;
 
-import static com.nishchay.Utils.sleep0;
+import com.nishchay.Utils;
 
 /**
  * Reader.java
@@ -22,6 +22,6 @@ public class Reader extends Thread {
  
         System.out.println(getName() + " -> get: " + number);
 
-        sleep0(100);
+        Utils.sleep0(100);
     }
 }
