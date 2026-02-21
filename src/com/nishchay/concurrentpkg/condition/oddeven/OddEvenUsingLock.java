@@ -1,7 +1,7 @@
 package com.nishchay.concurrentpkg.condition.oddeven;
 
 
-public class Driver {
+public class OddEvenUsingLock {
 
     public static final int LIMIT = 5;
 

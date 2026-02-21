@@ -1,24 +1,23 @@
-package com.nishchay.concurrentpkg.condition.prodcons.arraylist;
+package com.nishchay.concurrentpkg.condition.prodcons.buffer1;
 
-
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-public class SharedBuffer {
+// this clas sis same as - BufferWithTwoCondition.java / MyBlockingQueue.java
+// Only difference, the switching condition is not based on array size, instead switching based on a boolean flag here
+public class SharedObjectFlagDriven {
 
-    private int limit;
-    private List<Integer> bufferList;
+    private int data;
+    private boolean isProdTurn;
 
     private final Lock lock;
     private final Condition prodThread;
     private final Condition consThread;
 
-    public SharedBuffer(int size) {
-        this.limit = size;
-        this.bufferList = new ArrayList<>(size);
+    public SharedObjectFlagDriven(boolean isProdTurn) {
+
+        this.isProdTurn = isProdTurn;
 
         // lock and condition variable initialization
         lock = new ReentrantLock();
@@ -26,44 +25,37 @@ public class SharedBuffer {
         consThread = lock.newCondition();
     }
 
-    public boolean isFull() {
-        return bufferList.size() == limit;
-    }
 
-    public boolean isEmpty() {
-        return bufferList.size() == 0;
-    }
-    
-    public void put(int data) {
+    public void produce(int value) {
         lock.lock();
         try {
-            while (isFull()) {
+            while (!isProdTurn) {
                 try {
                     prodThread.await();
                 } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    throw new RuntimeException(e);
                 }
             }
-            // putting the element at the end
-            bufferList.add(data);
+            data = value;
+            isProdTurn = false;
             consThread.signal();
         } finally {
             lock.unlock();
         }
     }
 
-    public int take() {
+    public int consume() {
+
         lock.lock();
         try {
-            while (isEmpty()) {
+            while (isProdTurn) {
                 try {
                     consThread.await();
                 } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    throw new RuntimeException(e);
                 }
             }
-            // picking up the element from start
-            int data = bufferList.remove(0);
+            isProdTurn = true;
             prodThread.signal();
             return data;
         } finally {

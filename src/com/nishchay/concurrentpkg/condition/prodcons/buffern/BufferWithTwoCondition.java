@@ -1,23 +1,24 @@
-package com.nishchay.concurrentpkg.condition.oddeven;
+package com.nishchay.concurrentpkg.condition.prodcons.buffern;
 
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-public class SharedPrinter {
+public class BufferWithTwoCondition {
 
-    private boolean oddThreadTurn;
-    private int oddThreadValue, evenThreadValue;
+    private final int capacity;
+    private final List<Integer> bufferList;
 
     private final Lock lock;
     private final Condition prodThread;
     private final Condition consThread;
 
-
-    public SharedPrinter(int oddThreadValue, int evenThreadValue, boolean oddThreadTurn) {
-        this.oddThreadValue = oddThreadValue;
-        this.evenThreadValue = evenThreadValue;
-        this.oddThreadTurn = oddThreadTurn;
+    public BufferWithTwoCondition(int size) {
+        this.capacity = size;
+        this.bufferList = new ArrayList<>(size);
 
         // lock and condition variable initialization
         lock = new ReentrantLock();
@@ -25,41 +26,46 @@ public class SharedPrinter {
         consThread = lock.newCondition();
     }
 
-    public void printOdd() {
+    public boolean isFull() {
+        return bufferList.size() == capacity;
+    }
 
+    public boolean isEmpty() {
+        return bufferList.size() == 0;
+    }
+    
+    public void put(int data) {
         lock.lock();
         try {
-            while (!oddThreadTurn) {
+            while (isFull()) {
                 try {
                     prodThread.await();
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
             }
-            System.out.println(Thread.currentThread().getName() + " - " + oddThreadValue);
-            oddThreadValue = oddThreadValue + 2;
-            oddThreadTurn = false;
+            // putting the element at the end
+            bufferList.add(data);
             consThread.signal();
         } finally {
             lock.unlock();
         }
     }
 
-    public synchronized void printEven() {
-
+    public int take() {
         lock.lock();
         try {
-            while (oddThreadTurn) {
+            while (isEmpty()) {
                 try {
                     consThread.await();
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
             }
-            System.out.println(Thread.currentThread().getName() + " - " + evenThreadValue);
-            evenThreadValue = evenThreadValue + 2;
-            oddThreadTurn = true;
+            // picking up the element from start
+            int data = bufferList.remove(0);
             prodThread.signal();
+            return data;
         } finally {
             lock.unlock();
         }
