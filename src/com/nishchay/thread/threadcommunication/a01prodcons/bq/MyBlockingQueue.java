@@ -9,9 +9,9 @@ import java.util.List;
  * Underlying data structure is ArrayList
  *
  * */
-public class MyBlockingQueue<T> {
+public class MyBlockingQueue<E> {
 
-    private final List<T> dataList;
+    private final List<E> dataList;
     private final int limit;
 
     public MyBlockingQueue(int size) {
@@ -27,7 +27,7 @@ public class MyBlockingQueue<T> {
         return dataList.size() == 0;
     }
 
-    public synchronized void put(T element) {
+    public synchronized void put(E element) {
         while (isFull()) {
             try {
                 this.wait();
@@ -35,12 +35,12 @@ public class MyBlockingQueue<T> {
                 Thread.currentThread().interrupt();
             }
         }
-        // Append specified element to the end of list.
+        // Append a specified element to the end of the list.
         dataList.add(element);
         this.notifyAll();
     }
 
-    public synchronized T take() {
+    public synchronized E take() {
         while (isEmpty()) {
             try {
                 this.wait();
