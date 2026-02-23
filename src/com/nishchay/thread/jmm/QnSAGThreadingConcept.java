@@ -1,9 +1,12 @@
 package com.nishchay.thread.jmm;
 
-public class ThreadingConceptQn {
+public class QnSAGThreadingConcept {
 
     public static void main(String[] args) {
-
+        MetricContainer ref = new MetricContainer();
+        System.out.println(ref.getMetrics());
+        ref.updateMetrics(10,20);
+        System.out.println(ref.getMetrics());
     }
 
     public static class MetricContainer {

@@ -14,15 +14,27 @@ import com.nishchay.Utils;
  *  2. Or add a sleep(0), under the while loop - when we are putting sleep in executing thread, it will save the context in main memory
  *  so again done variable will be read from the main memory, so it is visible
  *
+ * Why Adding sleep(0) Appears to Fix It
+ * 	When you add:Utils.sleep0(0);
+ * 	Inside loop:
+ * 			Thread may yield
+ * 			Context switch may happen
+ * 			CPU registers may get flushed
+ * 			Value maybe reloaded from main memory
+ * 			So worker thread eventually sees updated value.
+ * 	BUT
+ * 			This is NOT guaranteed by JMM.
+ * 			It just happens to work due to side effects.
+ * 			Sleep does NOT officially guarantee visibility.
+ *
  *  Without doing any of the above things: since done variable is a class variable, it will be part of register in thread context.
  *  So when it gets modified by the other process, changes are not reflected to register level.
  *
- *
  * */
-public class BarrierConditionExpose {
+public class QnBarrierConditionExpose {
 
-    private static volatile boolean done;
-//    private static boolean done;
+//    private static volatile boolean done;
+    private static boolean done;
 
     public static void main(String[] args) throws InterruptedException {
 
@@ -46,7 +58,6 @@ public class BarrierConditionExpose {
         System.out.println("Setting done to true");
         done = true;
     }
-
 }
 
 /*
@@ -54,12 +65,12 @@ public class BarrierConditionExpose {
  *
  *	Stuck in execution:
  *	in main...
- *	running ....
+ *	running....
  *	Setting done to true
  *
  *	Completing its execution:
  *	in main...
- *	running ....
+ *	running....
  *	Setting done to true
  *	Exiting thread - 20619459
  *
