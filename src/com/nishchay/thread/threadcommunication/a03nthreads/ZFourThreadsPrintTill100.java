@@ -13,8 +13,6 @@ import java.util.concurrent.Semaphore;
  * */
 public class ZFourThreadsPrintTill100 {
 
-    public static final int NO_OF_THREAD = 4;
-
     public static void main(String[] args) {
 
         Semaphore s1 = new Semaphore(1);
