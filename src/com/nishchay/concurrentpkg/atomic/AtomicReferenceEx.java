@@ -36,23 +36,13 @@ public class AtomicReferenceEx {
 
         exchanged = atomicStringReference.compareAndSet(initialReference, newReference);
         System.out.println("exchanged: " + exchanged);
-
     }
 
     private static void sample1() {
-
-        AtomicReference<String> shared = new AtomicReference<>();
-        String init = "Initial Value";
-        shared.set(init);
-
-        //now we will modify that value
-        boolean success = false;
-        while (!success) {
-            String prevValue = shared.get();
-            // do all the work you need to
-            String newValue = shared.get() + "lets add something";
-            // Compare and set
-            success = shared.compareAndSet(prevValue, newValue);
-        }
+        AtomicReference<String> ref = new AtomicReference<>("Initial");
+        // Compare and set
+        boolean updated = ref.compareAndSet("Initial", "Updated");
+        System.out.println("Updated? " + updated);
+        System.out.println("Value: " + ref.get());
     }
 }

@@ -3,9 +3,9 @@ package com.nishchay.concurrentpkg.atomic.counter;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
-class CounterUsingLock  implements  ICounter{
+class CounterUsingLock  implements Counter {
 
-    private ReadWriteLock lock = new ReentrantReadWriteLock();
+    private final ReadWriteLock lock = new ReentrantReadWriteLock();
 
     private int count = 0;
 

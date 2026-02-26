@@ -2,9 +2,9 @@ package com.nishchay.concurrentpkg.atomic.counter;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-class AtomicCounter implements ICounter {
+class CounterUsingAtomic implements Counter {
 
-    private AtomicInteger count = new AtomicInteger(0);
+    private final AtomicInteger count = new AtomicInteger(0);
 
     public void increment() {
         count.incrementAndGet();

@@ -8,15 +8,13 @@ public class AtomicEx {
 
     public static void main(String[] args) {
 
-        atomicIntegerDemo();
+        atomicIntegerApi();
         atomicIntegerFailEx();
         atomicReferenceDemo();
         atomicStampedReferenceDemo();
-
     }
 
-
-    public static void atomicIntegerDemo() {
+    public static void atomicIntegerApi() {
 
         // AtomicInteger atomicInteger = new AtomicInteger(); - creates an AtomicInteger with the initial value 0
         // the default initial value of a AtomicInteger object will always be 0
@@ -62,6 +60,7 @@ public class AtomicEx {
         System.out.println(atomicInteger.compareAndSet(expectedValue, newValue));
         System.out.println("curr value - " + atomicInteger.get());
         System.out.println(atomicInteger.compareAndSet(500, 1000));
+        System.out.println("curr value - " + atomicInteger.get());
     }
 
     public static void atomicReferenceDemo() {
@@ -91,7 +90,6 @@ public class AtomicEx {
 
         exchanged = atomicStringReference.compareAndSet(initialReference, newReference);
         System.out.println("exchanged: " + exchanged); // false
-
     }
 
     private static void atomicStampedReferenceDemo() {
@@ -178,7 +176,6 @@ public class AtomicEx {
 
         if(ref == ref2 && stampHolder[0] == stampHolder2[0]){
             //no modification since optimistic modification was prepared
-
         } else {
             //retry from scratch.
         }

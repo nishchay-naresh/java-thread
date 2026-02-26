@@ -1,10 +1,10 @@
 package com.nishchay.concurrentpkg.atomic.counter;
 
-class SynchronizedCounter  implements  ICounter {
+public class CounterImpl implements Counter {
+
     private int count = 0;
 
-    // Synchronized Method 
-    public synchronized void increment() {
+    public void increment() {
         count = count + 1;
     }
 
