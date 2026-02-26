@@ -3,11 +3,10 @@ package com.nishchay.concurrentpkg.collection;
 
 
 import java.util.Iterator;
-import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.concurrent.*;
 
-import static com.nishchay.Utils.sleep0;
+import com.nishchay.Utils;
 
 
 /*
@@ -112,7 +111,7 @@ public class ConcurrentLinkedQueueDemo {
     }
 
     public static void consume(Queue<Integer> queue) {
-        sleep0(50);
+        Utils.sleep0(50);
         System.out.println(Thread.currentThread().getName() + " consume:" + queue.poll());
     }
 
