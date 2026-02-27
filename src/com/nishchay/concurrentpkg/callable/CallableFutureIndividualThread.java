@@ -10,13 +10,9 @@ import java.util.stream.Collectors;
 public class CallableFutureIndividualThread {
 
     public static void main(String[] args) {
-
-//        callableExWithThread();
+        callableExWithThread();
         callableExWithThreadPool();
-
     }
-
-
 
     /*
     * Java program to illustrate Callable and Future Task for random number generation
