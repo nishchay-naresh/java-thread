@@ -3,7 +3,7 @@ package com.nishchay.concurrentpkg.lock.rwlock;
 /**
  * ReadWriteTest.java
  * Test program is to understand ReentrantReadWriteLock concept
- * Leveraging its two locks (read & write lock ) for get & out propose
+ * Leveraging its two locks (read & write lock) for get & put propose
  * Making non-thread safe collection ArrayList to ThreadSafe by guarding add() & get() method
  *
  */

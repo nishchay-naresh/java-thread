@@ -1,5 +1,6 @@
 package com.nishchay.concurrentpkg.lock.reentrant;
 
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -7,11 +8,11 @@ public class ReentrantLockDemo {
 
     public static void main(String[] args) {
 
-//        reentrantLockAPIMethods();
-        counterUsingLock();
+        reentrantLockApi();
+//        counterUsingLock();
     }
 
-    private static void reentrantLockAPIMethods() {
+    private static void reentrantLockApi() {
         ReentrantLock lock =  new ReentrantLock();
         System.out.println("lock.isLocked() = " + lock.isLocked());                             // false
 
@@ -33,6 +34,28 @@ public class ReentrantLockDemo {
         lock.unlock();
         System.out.println("lock.getHoldCount() = " + lock.getHoldCount());                     // 0
         System.out.println("lock.isLocked() = " + lock.isLocked());                             // false
+
+        accessResource(lock);
+    }
+
+    private static void accessResource(ReentrantLock lock) {
+
+
+        boolean lockAcquired = lock.tryLock();  // try to get the lock, and let me know if you acquired it
+        // boolean lockAcquired = lock.tryLock(5, TimeUnit.SECONDS); //  same as above + timeout feature
+
+
+        if(lockAcquired){
+            try{
+                // access resources
+                System.out.println("accessing critical section");
+            }finally {
+                lock.unlock();
+            }
+        }else{
+            // do other things
+            System.out.println("didn't get the lock, so doing other stuffs");
+        }
     }
 
 
