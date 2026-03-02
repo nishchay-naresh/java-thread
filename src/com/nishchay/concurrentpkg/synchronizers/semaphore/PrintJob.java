@@ -30,7 +30,7 @@ public class PrintJob implements Runnable {
             semaphore.release();
 
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 }

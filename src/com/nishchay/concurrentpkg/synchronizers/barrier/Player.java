@@ -20,7 +20,7 @@ public class Player implements Runnable {
         try {
             barrier.await();
         } catch (BrokenBarrierException | InterruptedException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
         System.out.printf("thread - %s , Player - %s has started playing game now %n",
                 Thread.currentThread().getName(), name);

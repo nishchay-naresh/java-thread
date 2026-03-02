@@ -22,7 +22,7 @@ public class QueueConsumer implements Runnable {
 */
 
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 }

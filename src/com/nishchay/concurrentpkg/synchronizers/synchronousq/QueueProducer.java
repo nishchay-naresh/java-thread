@@ -25,7 +25,7 @@ public class QueueProducer implements Runnable {
                     .currentThread().getName(), another_event);
 
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 }

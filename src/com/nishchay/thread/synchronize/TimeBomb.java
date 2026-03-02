@@ -1,4 +1,4 @@
-package com.nishchay.thread.synchronize.sum100;
+package com.nishchay.thread.synchronize;
 
 import com.nishchay.Utils;
 

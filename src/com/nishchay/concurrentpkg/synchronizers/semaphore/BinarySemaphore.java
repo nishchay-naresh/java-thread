@@ -19,7 +19,7 @@ public class BinarySemaphore {
         try {
             binarySemaphore.acquire(); // decrease the permit count
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
         if(0 == binarySemaphore.availablePermits()){
             System.out.println("zero permits available");

@@ -16,7 +16,7 @@ public class Waiter implements Runnable {
             latch.await();
             Thread.sleep(1000);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
         System.out.println("Waiter has started serving the food ...!!!");
     }

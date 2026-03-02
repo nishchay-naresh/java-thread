@@ -33,7 +33,7 @@ public class LatchDemoThreadPool {
             latch.await();
             Thread.sleep(1000);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
         System.out.println(Thread.currentThread().getName() + " resume once all sub-task finished (which is - all guest have arrived)");
         System.out.println(Thread.currentThread().getName() + " has ended the main execution ----" );

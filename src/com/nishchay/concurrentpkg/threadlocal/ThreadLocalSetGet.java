@@ -5,18 +5,18 @@ public class ThreadLocalSetGet {
 
     public static void main(String[] args) {
 
-//        setValue();
-//        defaultAndRemove();
+        setValue();
+        defaultAndRemove();
         overrideInitialValue();
 }
 
     private static void setValue() {
 
-        ThreadLocal thrdLocal =  new ThreadLocal();
+        ThreadLocal<String> threadLocal =  new ThreadLocal<>();
 
         // ThreadLocal without generics
-        thrdLocal.set("A thread local value");
-        String val = (String) thrdLocal.get();
+        threadLocal.set("A thread local value");
+        String val = (String) threadLocal.get();
         System.out.println("val = " + val);
 
         // ThreadLocal with generics
@@ -29,37 +29,37 @@ public class ThreadLocalSetGet {
 
     private static void defaultAndRemove() {
 
-        ThreadLocal thrdLocal =  new ThreadLocal();
-        System.out.println(thrdLocal.get());
+        ThreadLocal<String> threadLocal =  new ThreadLocal<>();
+        System.out.println(threadLocal.get());
 
-        thrdLocal.set("java");
-        System.out.println(thrdLocal.get());
+        threadLocal.set("java");
+        System.out.println(threadLocal.get());
 
-        thrdLocal.remove();
-        System.out.println(thrdLocal.get());
+        threadLocal.remove();
+        System.out.println(threadLocal.get());
 
     }
 
     private static void overrideInitialValue() {
 
 
-/*        ThreadLocal<String> genericThrdLocal =  new ThreadLocal(){
+/*        ThreadLocal<String> genericThreadLocal =  new ThreadLocal(){
             public String initialValue(){
                 return "java";
             }
         };
 */
 
-        ThreadLocal<String> genericThrdLocal = ThreadLocal.withInitial(() -> "java");
-        System.out.println(genericThrdLocal.get());
+        ThreadLocal<String> genericThreadLocal = ThreadLocal.withInitial(() -> "java");
+        System.out.println(genericThreadLocal.get());
 
-        genericThrdLocal.set("perl");
-        System.out.println(genericThrdLocal.get());
+        genericThreadLocal.set("perl");
+        System.out.println(genericThreadLocal.get());
 
-        genericThrdLocal.set("ruby");
-        System.out.println(genericThrdLocal.get());
+        genericThreadLocal.set("ruby");
+        System.out.println(genericThreadLocal.get());
 
-        genericThrdLocal.remove();
-        System.out.println(genericThrdLocal.get());
+        genericThreadLocal.remove();
+        System.out.println(genericThreadLocal.get());
     }
 }
