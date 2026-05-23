@@ -1,5 +1,9 @@
 package com.nishchay.thread.exception;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadFactory;
+
 public class ExceptionInThread {
 
     public static void main(String[] args) {
@@ -14,7 +18,10 @@ public class ExceptionInThread {
         withLocalHandler(taskThrowException);
         withLocalHandler2Threads(taskThrowException);
         withGlobalHandler(taskThrowException);
+        combinationOfLocalHandlerAndGlobalHandler(taskThrowException);
+        uncaughtExceptionHandlerInExecutor();
     }
+
 
     /*
      * Thread.UncaughtExceptionHandler is a JVM-level safety net that lets us capture and react to uncaught runtime exceptions before a thread terminates,
@@ -36,8 +43,8 @@ public class ExceptionInThread {
      * Exception in thread "Thread-0" java.lang.RuntimeException
      *
      * */
-    private static void noHandler(Runnable r) {
-        Thread t = new Thread(r);
+    private static void noHandler(Runnable task) {
+        Thread t = new Thread(task);
         t.start();
     }
 
@@ -54,11 +61,11 @@ public class ExceptionInThread {
      * Thread Thread-0 crashed: Boom
      *
      * */
-    private static void withLocalHandler(Runnable r) {
+    private static void withLocalHandler(Runnable task) {
         Thread.UncaughtExceptionHandler handler =
                 (thread, ex) -> System.err.println("Thread " + thread.getName() + " crashed: " + ex.getMessage());
 
-        Thread t = new Thread(r);
+        Thread t = new Thread(task);
         // setting up a handler in case of exception
         t.setUncaughtExceptionHandler(handler);
         t.start();
@@ -73,18 +80,18 @@ public class ExceptionInThread {
      * Handler2: Thread Thread-1 crashed: Boom
      *
      * */
-    public static void withLocalHandler2Threads(Runnable r) {
+    public static void withLocalHandler2Threads(Runnable taskThrowException) {
         Thread.UncaughtExceptionHandler handler1 =
                 (thread, ex) -> System.err.println("Handler1 : Thread " + thread.getName() + " crashed: " + ex.getMessage());
 
         Thread.UncaughtExceptionHandler handler2 =
                 (thread, ex) -> System.err.println("Handler2 : Thread " + thread.getName() + " crashed: " + ex.getMessage());
 
-        Thread t1 = new Thread(r);
+        Thread t1 = new Thread(taskThrowException);
         t1.setUncaughtExceptionHandler(handler1);
         t1.start();
 
-        Thread t2 = new Thread(r);
+        Thread t2 = new Thread(taskThrowException);
         t2.setUncaughtExceptionHandler(handler2);
         t2.start();
     }
@@ -106,7 +113,7 @@ public class ExceptionInThread {
      * GenericHandler : Thread Thread-4 crashed: Boom
      *
      * */
-    private static void withGlobalHandler(Runnable r) {
+    private static void withGlobalHandler(Runnable taskThrowException) {
 
         Thread.UncaughtExceptionHandler genericHandler =
                 (thread, ex) -> System.err.println("GenericHandler : Thread " + thread.getName() + " crashed: " + ex.getMessage());
@@ -114,8 +121,54 @@ public class ExceptionInThread {
         Thread.setDefaultUncaughtExceptionHandler(genericHandler);
 
         for (int i = 1; i <= 5; i++) {
-            Thread thread = new Thread(r);
+            Thread thread = new Thread(taskThrowException);
             thread.start();
         }
     }
+
+    private static void combinationOfLocalHandlerAndGlobalHandler(Runnable task) {
+
+        Thread.UncaughtExceptionHandler genericHandler =
+                (thread, ex) -> System.err.println("GenericHandler : Thread " + thread.getName() + " crashed: " + ex.getMessage());
+        // Setting a global UncaughtException Handler, At Thread class level
+        Thread.setDefaultUncaughtExceptionHandler(genericHandler);
+
+        Thread.UncaughtExceptionHandler handler1 =
+                (thread, ex) -> System.err.println("LocalHandler : Thread " + thread.getName() + " crashed: " + ex.getMessage());
+
+        Thread t1 = new Thread(task);
+        t1.setUncaughtExceptionHandler(handler1);
+        t1.start();
+    }
+
+    private static void uncaughtExceptionHandlerInExecutor() {
+        System.out.println(Thread.currentThread().getName() + " thread "  + "starts");
+        Runnable taskThrowException = () -> {
+            System.out.println(Thread.currentThread().getName() + " throwing exception from run() method");
+            throw new RuntimeException("Boom");
+        };
+
+        ExecutorService execService = Executors.newCachedThreadPool(new ThreadFactoryWithExceptionHandler());
+
+        execService.execute(taskThrowException);
+        execService.execute(taskThrowException);
+        execService.execute(taskThrowException);
+        execService.execute(taskThrowException);
+
+        execService.shutdown();
+        System.out.println(Thread.currentThread().getName() + " thread "  + "end");
+    }
+
+
+    public static class ThreadFactoryWithExceptionHandler implements ThreadFactory {
+        @Override
+        public Thread newThread(Runnable r) {
+            Thread.UncaughtExceptionHandler commonHandler =
+                    (thread, ex) -> System.err.println("Common Handler : Thread " + thread.getName() + " crashed: " + ex.getMessage());
+            Thread t = new Thread(r);
+            t.setUncaughtExceptionHandler(commonHandler);
+            return t;
+        }
+    }
+
 }

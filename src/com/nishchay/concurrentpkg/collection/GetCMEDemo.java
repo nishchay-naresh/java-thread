@@ -1,6 +1,7 @@
 package com.nishchay.concurrentpkg.collection;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
@@ -8,19 +9,14 @@ public class GetCMEDemo {
 
     public static void main(String[] args) {
 
-        List<Integer> list = new ArrayList<>();
-        list.add(9);
-        list.add(2);
-        list.add(7);
-        list.add(3);
-        list.add(5);
+        List<Integer> list = Arrays.asList(9, 2, 7, 3, 5);
         System.out.println("original list - " + list);
-
         for_loop_iteration(list);
         iterating_using_iterator(list);
         for_each_iteration(list);
-        failFastBehaviour();
         System.out.println("modified list - " + list);
+
+        failFastBehaviour();
     }
 
     private static void for_loop_iteration(List<Integer> list) {
@@ -52,7 +48,7 @@ public class GetCMEDemo {
     /*
      * 	This for each loop  - for (String s : list)
      * 	is internally translated to:
-     * 	// its using an Iterator internally.
+     * 	// it's using an Iterator internally
      * 	Iterator<String> it = list.iterator();
      * 	while (it.hasNext()) {
      * 	    String s = it.next();
@@ -84,14 +80,14 @@ public class GetCMEDemo {
 
     /*
      * Here
-     *   list.add("Z") Throws ConcurrentModificationException always
+     *   list.add("z") Throws ConcurrentModificationException always
      * But
-     *   list.remove("B"); will not Throws ConcurrentModificationException why?
+     *   list.remove("c"); will not Throws ConcurrentModificationException why?
      *
      *	Here’s what happens:
-     *		-	The iterator had already fetched "A"
-     *		-	Internal cursor moves to index 1
-     *		-	But now size is 1
+     *		-	The iterator had already fetched till "c"
+     *		-	Internal cursor moves to index 2
+     *		-	But now size is 3
      *		-	So hasNext() becomes false
      *		-	So the loop ends before calling next() again, and therefore
      *		-	The modification check never runs again
@@ -99,14 +95,18 @@ public class GetCMEDemo {
      *
      * */
     private static void failFastBehaviour() {
+
         List<String> list = new ArrayList<>();
-        list.add("A");
-        list.add("B");
+        list.add("a");
+        list.add("b");
+        list.add("c");
+        list.add("d");
+        // List<String> list = Arrays.asList("a", "b", "c", "d");
 
         for (String s : list) {
-            if ("A".equals(s)) {
-                // list.add("Z");
-                list.remove("A");
+            if ("c".equals(s)) {
+                // list.add("z");
+                list.remove("c");
             }
         }
         System.out.println(list);

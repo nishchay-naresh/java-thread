@@ -4,7 +4,7 @@ import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-// this clas sis same as - BufferWithTwoCondition.java / MyBlockingQueue.java
+// this class is same as - BufferWithTwoCondition.java / MyBlockingQueue.java
 // Only difference, the switching condition is not based on array size, instead switching based on a boolean flag here
 public class SharedObjectFlagDriven {
 

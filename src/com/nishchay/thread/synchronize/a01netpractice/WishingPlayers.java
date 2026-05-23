@@ -26,7 +26,7 @@ public class WishingPlayers {
         Display display = new Display();
         Thread t1 = new Thread(new WishTask(display, "Dhoni"));
 
-         Display display1 = new Display();
+        Display display1 = new Display();
         Thread t2 = new Thread(new WishTask(display1, "Yuvraj"));
 
         t1.start();

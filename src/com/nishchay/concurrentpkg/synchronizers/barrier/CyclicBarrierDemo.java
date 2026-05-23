@@ -15,12 +15,12 @@ public class CyclicBarrierDemo {
         Thread taskAfterReachingCommonPoint = new Thread(() -> System.out.println("Game has been started now ...!!!!"));
 
         final int NO_OF_PLAYERS = 4;
-        CyclicBarrier barrier  = new CyclicBarrier(NO_OF_PLAYERS, taskAfterReachingCommonPoint);
+        CyclicBarrier barrier = new CyclicBarrier(NO_OF_PLAYERS, taskAfterReachingCommonPoint);
 
-        new Thread(new Player("Player 1",barrier ), "Thread 1").start();
-        new Thread(new Player("Player 2",barrier ), "Thread 2").start();
-        new Thread(new Player("Player 3",barrier ), "Thread 3").start();
-        new Thread(new Player("Player 4",barrier ), "Thread 4").start();
+        new Thread(new Player("Player 1", barrier), "Thread 1").start();
+        new Thread(new Player("Player 2", barrier), "Thread 2").start();
+        new Thread(new Player("Player 3", barrier), "Thread 3").start();
+        new Thread(new Player("Player 4", barrier), "Thread 4").start();
 
     }
 }

@@ -7,10 +7,10 @@ import java.util.concurrent.*;
 
 /*
  * "A Task is running in a separate thread. Stop the task if it exceeds 10 minutes."
- *      1.  We don't have stop() method for thread instance, can't have anything for stop, kill, suspend thread
+ *      1.  We don't have stop() method for thread instance, can't have anything for stop(), kill(), suspend thread
  *      2.  Using executor.shutdown()/ executor.shutdownNow() wont help much because it never guarantees stoping a thread,
  *              Its documentation says - attempt to stop
- *      3.  Using a thread from thread pool, instead of runnable using a Callable<V>, then calling future.cancel()
+ *      3.  Using a thread from thread pool, instead of runnable using a Callable<V>, then calling future.cancel(true)
  *              Its documentation says - attempt to stop
  *      Conclusion:
  *          Java threads cannot be killed.
@@ -36,7 +36,7 @@ import java.util.concurrent.*;
  * Important Caveat-Cannot react to interrupt nor volatile if control not in java. i.e during IO operations!
  *
  *
- *
+ * https://youtu.be/_RSAS-gIjGo?si=4RZmG3dm3xyDyYwd
  * */
 public class TimeOutATask {
 

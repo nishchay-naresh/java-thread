@@ -1,6 +1,5 @@
 package com.nishchay.concurrentpkg.lock.reentrant;
 
-import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -9,7 +8,7 @@ public class ReentrantLockDemo {
     public static void main(String[] args) {
 
         reentrantLockApi();
-//        counterUsingLock();
+        counterUsingLock();
     }
 
     private static void reentrantLockApi() {
