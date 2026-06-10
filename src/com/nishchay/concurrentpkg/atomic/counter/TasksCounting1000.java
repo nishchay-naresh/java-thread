@@ -4,7 +4,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-public class TasksCounting100 {
+public class TasksCounting1000 {
 
     public static void main(String[] args) throws InterruptedException {
 
@@ -18,7 +18,7 @@ public class TasksCounting100 {
     // Race Condition Example -  because of atomicity issue
     private static void theWrongCount() {
         Counter counter = new CounterImpl();
-        hundredThreadIncrement(counter);
+        thousandThreadIncrement(counter);
     }
     /*
      * o/p =>
@@ -34,22 +34,22 @@ public class TasksCounting100 {
     // fixing atomicity issue - using Synchronization
     private static void fixBySynchronisedCounter() {
         Counter counter = new CounterImplSynchronized();
-        hundredThreadIncrement(counter);
+        thousandThreadIncrement(counter);
     }
 
     // fixing atomicity issue - using Lock
     private static void fixByCounterUsingLock() {
         Counter counter =  new CounterUsingLock();
-        hundredThreadIncrement(counter);
+        thousandThreadIncrement(counter);
     }
 
     // fixing atomicity issue - using atomic package
     private static void fixByCounterUsingAtomic() {
         Counter counter =  new CounterUsingAtomic();
-        hundredThreadIncrement(counter);
+        thousandThreadIncrement(counter);
     }
 
-    private static void hundredThreadIncrement(Counter counter){
+    private static void thousandThreadIncrement(Counter counter){
         ExecutorService executorService = Executors.newFixedThreadPool(5);
 
         for (int i = 0; i < 1000; i++) {
